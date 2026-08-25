@@ -1,0 +1,92 @@
+{
+  "project": "TopoCross-SWIS Aditya L2 final submission QA",
+  "passed": true,
+  "checks": [
+    {
+      "name": "feature_csv_exists",
+      "passed": true,
+      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/aug2024_features_1min.csv"
+    },
+    {
+      "name": "pipeline_report_exists",
+      "passed": true,
+      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/pipeline_report.json"
+    },
+    {
+      "name": "spectra_npz_exists",
+      "passed": true,
+      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/aug2024_spectra_1min.npz"
+    },
+    {
+      "name": "static_dashboard_exists",
+      "passed": true,
+      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/outputs/TopoCross_dashboard.html"
+    },
+    {
+      "name": "zenodo_external_dataset_optional",
+      "passed": true,
+      "detail": "optional external dataset not present in GitHub-clean folder"
+    },
+    {
+      "name": "record_count_10080",
+      "passed": true,
+      "detail": "records=10080"
+    },
+    {
+      "name": "range_start",
+      "passed": true,
+      "detail": "2024-08-09 00:00:00"
+    },
+    {
+      "name": "range_end",
+      "passed": true,
+      "detail": "2024-08-15 23:59:00"
+    },
+    {
+      "name": "primary_transition_anchor",
+      "passed": true,
+      "detail": "2024-08-10 12:19:00"
+    },
+    {
+      "name": "offset_anchor",
+      "passed": true,
+      "detail": "-31.0"
+    },
+    {
+      "name": "change_points_34",
+      "passed": true,
+      "detail": "34"
+    },
+    {
+      "name": "states_present",
+      "passed": true,
+      "detail": "{'NORMAL': 4956, 'WATCH': 4499, 'ICME CANDIDATE': 557, 'ALERT': 68}"
+    },
+    {
+      "name": "watch_before_confirmed_alert",
+      "passed": true,
+      "detail": "{Timestamp('2024-08-10 12:17:00'): 'WATCH', Timestamp('2024-08-10 12:18:00'): 'WATCH', Timestamp('2024-08-10 12:19:00'): 'ALERT'}"
+    },
+    {
+      "name": "cme_match_uses_detected_transition",
+      "passed": true,
+      "detail": "detected_transition @ 2024-08-10 12:19:00"
+    },
+    {
+      "name": "js_missing_under_5_percent",
+      "passed": true,
+      "detail": "4.196%"
+    },
+    {
+      "name": "mag_missing_under_1_percent",
+      "passed": true,
+      "detail": "0.764%"
+    },
+    {
+      "name": "pytest_passes",
+      "passed": true,
+      "detail": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0\nrootdir: /Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2\nplugins: mock-3.15.1, anyio-4.9.0, cov-7.0.0\ncollected 9 items\n\ntests/test_opdi.py ...                                                   [ 33%]\ntests/test_regression.py ......                                          [100%]\n\n============================== 9 passed in 0.80s ===============================\n"
+    }
+  ],
+  "scientific_guardrail": "Single-event exploratory prototype. Do not claim validated early warning or generalized ICME detection."
+}

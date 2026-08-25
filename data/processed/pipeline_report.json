@@ -1,0 +1,318 @@
+{
+  "prototype": "TopoCross-SWIS August 2024 v1.0",
+  "data_interval_utc": {
+    "start": "2024-08-09 00:00:00",
+    "end": "2024-08-15 23:59:00"
+  },
+  "one_minute_records": 10080,
+  "swis_version": "V03",
+  "common_energy_grid_ev": [
+    320.0,
+    2100.0
+  ],
+  "common_energy_grid_points": 64,
+  "processed_dates": [
+    "20240809",
+    "20240810",
+    "20240811",
+    "20240812",
+    "20240813",
+    "20240814",
+    "20240815"
+  ],
+  "missing_mag_dates_allowed": false,
+  "mean_daily_usable_fraction": 0.9580357142857142,
+  "detector": {
+    "baseline_start": "2024-08-09 00:00:00",
+    "baseline_end": "2024-08-10 08:30:00",
+    "robust_baseline": {
+      "js_opdi": {
+        "median": 0.02108019841849397,
+        "scale": 0.01337694083899399
+      },
+      "hellinger_opdi": {
+        "median": 0.14665479751061034,
+        "scale": 0.04956931698868874
+      },
+      "wasserstein_opdi": {
+        "median": 0.035791056614061456,
+        "scale": 0.01848720063689532
+      },
+      "proton_bulk_speed": {
+        "median": 381.07295106763877,
+        "scale": 16.21637278888695
+      },
+      "proton_density": {
+        "median": 4.350968193713271,
+        "scale": 1.4640238200960123
+      },
+      "proton_thermal": {
+        "median": 47.654720674067235,
+        "scale": 14.612338376477977
+      },
+      "alpha_proton_ratio": {
+        "median": 0.011690132642151357,
+        "scale": 0.0034776035656847466
+      },
+      "bmag_gse": {
+        "median": 5.252142151502811,
+        "scale": 0.528314707840455
+      },
+      "Bx_gse": {
+        "median": 2.0038286447525024,
+        "scale": 2.2249275645732878
+      },
+      "By_gse": {
+        "median": -4.207079172134399,
+        "scale": 1.2104901552200316
+      },
+      "Bz_gse": {
+        "median": -0.2518823742866516,
+        "scale": 3.0631906715154646
+      }
+    },
+    "opdi_watch_threshold_q95": 2.7911133032246025,
+    "opdi_only_threshold_q99": 4.301788357306002,
+    "conventional_threshold_q99": 2.4314769889147976,
+    "combined_baseline_q95": 2.7911133032246025,
+    "watch_threshold_combined": 2.8122751666908123,
+    "transition_threshold": 8.0,
+    "transition_lag_minutes": 4,
+    "transition_min_run_minutes": 2,
+    "transition_step_baseline": {
+      "bmag_gse": {
+        "median_step": 0.14208507537841797,
+        "scale_step": 0.14665011348724363,
+        "weight": 0.35
+      },
+      "proton_bulk_speed": {
+        "median_step": 5.942427385368035,
+        "scale_step": 5.538786825610111,
+        "weight": 0.25
+      },
+      "proton_thermal": {
+        "median_step": 1.546027328047149,
+        "scale_step": 1.780992579041263,
+        "weight": 0.15
+      },
+      "proton_density": {
+        "median_step": 0.6092925730448902,
+        "scale_step": 0.6202940001472337,
+        "weight": 0.1
+      },
+      "js_opdi": {
+        "median_step": 0.004768596668734391,
+        "scale_step": 0.005200480317682181,
+        "weight": 0.15
+      }
+    },
+    "persistent_transition_runs": 34
+  },
+  "evaluation_against_configured_reference": {
+    "change_points_total": 34,
+    "first_change_after_reference_shock": "2024-08-11 10:17:00",
+    "delay_minutes_first_after_reference": 1287.0,
+    "nearest_change_to_reference_shock": "2024-08-10 12:19:00",
+    "nearest_change_offset_minutes": -31.0,
+    "change_points_before_reference_shock": 2,
+    "change_points_after_reference_shock": 32
+  },
+  "primary_transition_nearest_configured_reference": {
+    "detected_at": "2024-08-10 12:19:00",
+    "offset_from_configured_reference_minutes": -31.0,
+    "transition_score": 15.411747736238903,
+    "js_opdi": 0.008420935095153115,
+    "proton_bulk_speed_km_s": 401.6663135097057,
+    "proton_density_cm3": 3.5078650962317353,
+    "magnetic_field_magnitude_nT": 9.151424291709901
+  },
+  "cme_source_match_reference_time": "2024-08-10 12:19:00",
+  "cme_source_match_reference": "detected_transition",
+  "configured_ground_truth": {
+    "shock_reference": "2024-08-10T12:50:00",
+    "shock_reference_is_approximate": true,
+    "icme_ejecta_start": "2024-08-11T12:00:00",
+    "icme_ejecta_end": "2024-08-14T00:00:00",
+    "reference_markers": {
+      "aspex_swis_reported_shock": "2024-08-10T09:33:00",
+      "nasa_ccmc_combined_front": "2024-08-10T11:55:00",
+      "legacy_internal_benchmark": "2024-08-10T12:50:00"
+    },
+    "note": "12:50 UTC is a legacy approximate internal benchmark; do not report detector offset as validated lead time."
+  },
+  "state_counts": {
+    "NORMAL": 4956,
+    "WATCH": 4499,
+    "ICME CANDIDATE": 557,
+    "ALERT": 68
+  },
+  "ground_truth_counts": {
+    "ICME/EJECTA": 3600,
+    "POST-EVENT": 2880,
+    "QUIET/PRE-EVENT": 2210,
+    "SHEATH": 1390
+  },
+  "exploratory_opdi_tests": [
+    {
+      "comparison": "SHEATH vs QUIET/PRE-EVENT",
+      "metric": "js_opdi",
+      "quiet_median": 0.022666389731951495,
+      "event_median": 0.03249375931645035,
+      "cliffs_delta_event_vs_quiet": 0.26000515024222226,
+      "mannwhitney_p_two_sided": 2.3427103344233495e-36,
+      "n_quiet": 1788,
+      "n_event": 1390
+    },
+    {
+      "comparison": "SHEATH vs QUIET/PRE-EVENT",
+      "metric": "hellinger_opdi",
+      "quiet_median": 0.15257553521327646,
+      "event_median": 0.1824984451174554,
+      "cliffs_delta_event_vs_quiet": 0.2539503967295962,
+      "mannwhitney_p_two_sided": 9.21882424427872e-35,
+      "n_quiet": 1788,
+      "n_event": 1390
+    },
+    {
+      "comparison": "SHEATH vs QUIET/PRE-EVENT",
+      "metric": "wasserstein_opdi",
+      "quiet_median": 0.03795397513465782,
+      "event_median": 0.051113071091578394,
+      "cliffs_delta_event_vs_quiet": 0.22933545780825004,
+      "mannwhitney_p_two_sided": 1.1665073338304984e-28,
+      "n_quiet": 1788,
+      "n_event": 1390
+    },
+    {
+      "comparison": "ICME/EJECTA vs QUIET/PRE-EVENT",
+      "metric": "js_opdi",
+      "quiet_median": 0.022666389731951495,
+      "event_median": 0.06092326404882327,
+      "cliffs_delta_event_vs_quiet": 0.6165290206313696,
+      "mannwhitney_p_two_sided": 3.726166273179763e-298,
+      "n_quiet": 1788,
+      "n_event": 3600
+    },
+    {
+      "comparison": "ICME/EJECTA vs QUIET/PRE-EVENT",
+      "metric": "hellinger_opdi",
+      "quiet_median": 0.15257553521327646,
+      "event_median": 0.2509017127728548,
+      "cliffs_delta_event_vs_quiet": 0.6167322271936366,
+      "mannwhitney_p_two_sided": 2.377504478503055e-298,
+      "n_quiet": 1788,
+      "n_event": 3600
+    },
+    {
+      "comparison": "ICME/EJECTA vs QUIET/PRE-EVENT",
+      "metric": "wasserstein_opdi",
+      "quiet_median": 0.03795397513465782,
+      "event_median": 0.042287087450267324,
+      "cliffs_delta_event_vs_quiet": 0.13736142182450917,
+      "mannwhitney_p_two_sided": 1.9924302180311895e-16,
+      "n_quiet": 1788,
+      "n_event": 3600
+    },
+    {
+      "comparison": "POST-EVENT vs QUIET/PRE-EVENT",
+      "metric": "js_opdi",
+      "quiet_median": 0.022666389731951495,
+      "event_median": 0.04628730701888559,
+      "cliffs_delta_event_vs_quiet": 0.5430611859542953,
+      "mannwhitney_p_two_sided": 3.513972126013927e-214,
+      "n_quiet": 1788,
+      "n_event": 2879
+    },
+    {
+      "comparison": "POST-EVENT vs QUIET/PRE-EVENT",
+      "metric": "hellinger_opdi",
+      "quiet_median": 0.15257553521327646,
+      "event_median": 0.22000407754331772,
+      "cliffs_delta_event_vs_quiet": 0.550130039870605,
+      "mannwhitney_p_two_sided": 9.746291836248337e-220,
+      "n_quiet": 1788,
+      "n_event": 2879
+    },
+    {
+      "comparison": "POST-EVENT vs QUIET/PRE-EVENT",
+      "metric": "wasserstein_opdi",
+      "quiet_median": 0.03795397513465782,
+      "event_median": 0.05868399591780378,
+      "cliffs_delta_event_vs_quiet": 0.3648253611549499,
+      "mannwhitney_p_two_sided": 9.217975426335273e-98,
+      "n_quiet": 1788,
+      "n_event": 2879
+    }
+  ],
+  "daily_quality": {
+    "20240809": {
+      "records": 12199,
+      "start": "2024-08-09 00:00:28.719000",
+      "end": "2024-08-09 23:59:55.983000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 0.7069444444444445,
+      "th1_finite_flux_fraction": 0.5822903516681696,
+      "th2_finite_flux_fraction": 0.6659168784326585
+    },
+    "20240810": {
+      "records": 17275,
+      "start": "2024-08-10 00:00:25.983000",
+      "end": "2024-08-10 23:59:56.794000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.588605499276411,
+      "th2_finite_flux_fraction": 0.6853117221418235
+    },
+    "20240811": {
+      "records": 17263,
+      "start": "2024-08-11 00:00:26.794000",
+      "end": "2024-08-11 23:59:57.601000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6794195678619012,
+      "th2_finite_flux_fraction": 0.75433354573365
+    },
+    "20240812": {
+      "records": 17275,
+      "start": "2024-08-12 00:00:27.601000",
+      "end": "2024-08-12 23:59:58.394000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6202454413892908,
+      "th2_finite_flux_fraction": 0.730465991316932
+    },
+    "20240813": {
+      "records": 17253,
+      "start": "2024-08-13 00:00:28.394000",
+      "end": "2024-08-13 23:59:59.173000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.5766649278386368,
+      "th2_finite_flux_fraction": 0.6858030487451457
+    },
+    "20240814": {
+      "records": 17243,
+      "start": "2024-08-14 00:00:29.173000",
+      "end": "2024-08-14 23:59:59.949000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 0.9993055555555556,
+      "th1_finite_flux_fraction": 0.5594513715710723,
+      "th2_finite_flux_fraction": 0.6627466218175492
+    },
+    "20240815": {
+      "records": 17263,
+      "start": "2024-08-15 00:00:29.949000",
+      "end": "2024-08-15 23:59:55.725000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.5678665353646527,
+      "th2_finite_flux_fraction": 0.6512309563806986
+    }
+  },
+  "scientific_status": [
+    "Detector calculations do not use the ground-truth labels.",
+    "The configured shock reference is approximate and must be reconciled before claiming a validated lead time.",
+    "OPDI separation statistics are exploratory results for one event interval, not evidence of multi-event generalization.",
+    "CME source compatibility is a heuristic ranking, not a calibrated causal probability."
+  ]
+}

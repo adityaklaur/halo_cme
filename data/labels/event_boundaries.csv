@@ -1,0 +1,4 @@
+boundary_type,boundary_time_utc,notes
+Approx shock reference,2024-08-10T12:50:00,Approximate benchmark used only for validation display
+ICME ejecta start,2024-08-11T12:00:00,Configured sheath-to-ejecta transition
+ICME ejecta end,2024-08-14T00:00:00,Configured end of ICME/ejecta interval

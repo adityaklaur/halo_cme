@@ -1,0 +1,21 @@
+.DS_Store
+__pycache__/
+.pycache/
+.pytest_cache/
+.venv/
+
+# Local/raw spacecraft data and downloaded archives
+dataZips/
+Archive/
+data/raw/
+*.zip
+*.cdf
+*.nc
+data/external/
+data/processed/daily/
+
+# Keep final processed demo outputs in git:
+# data/processed/aug2024_features_1min.csv
+# data/processed/aug2024_spectra_1min.npz
+# data/processed/pipeline_report.json
+# outputs/TopoCross_dashboard.html

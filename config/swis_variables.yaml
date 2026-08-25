@@ -1,0 +1,16 @@
+epoch: epoch_for_cdf_mod
+energy: energy_center_mod
+flux: integrated_flux_mod
+blk:
+  proton_density: proton_density
+  proton_bulk_speed: proton_bulk_speed
+  proton_thermal: proton_thermal
+  alpha_density: alpha_density
+  alpha_bulk_speed: alpha_bulk_speed
+  alpha_thermal: alpha_thermal
+mag:
+  time: time
+  quality: Quality_flag_10s_data
+  Bx_gse: Bx_gse
+  By_gse: By_gse
+  Bz_gse: Bz_gse

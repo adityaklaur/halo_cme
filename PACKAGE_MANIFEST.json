@@ -1,0 +1,31 @@
+{
+  "package": "Aditya-L2-TopoCross-SWIS",
+  "status": "merged working prototype using FINAL scientific detector profile",
+  "includes_source_code": true,
+  "includes_config": true,
+  "includes_tests_folder": true,
+  "includes_processed_august_outputs": true,
+  "includes_raw_spacecraft_data": false,
+  "raw_data_note": "Processed demonstration outputs are included. Raw TH1/TH2/BLK/MAG files must be supplied under data/raw before running a full rebuild.",
+  "scientific_anchor": {
+    "records": 10080,
+    "interval": "2024-08-09 through 2024-08-15 UTC",
+    "common_grid_ev": [
+      320,
+      2100
+    ],
+    "common_grid_points": 64,
+    "nearest_persistent_transition_expected": "2024-08-10 12:19 UTC",
+    "configured_approx_shock_reference": "2024-08-10 12:50 UTC",
+    "offset_minutes_expected": -31
+  },
+  "operational_additions_from_aditya_l2": [
+    "Streamlit Data Manager",
+    "In-app refresh and rebuild",
+    "Custom UTC time range selector",
+    "CDF inspection script",
+    "Zenodo SWIS-only download and build scripts",
+    "Configurable processing date range"
+  ],
+  "scientific_guardrail": "Do not describe the transition offset as validated early warning. This is a single-event exploratory prototype."
+}

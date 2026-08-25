@@ -1,0 +1,61 @@
+swis:
+  version: V03
+  common_energy_min_ev: 320
+  common_energy_max_ev: 2100
+  common_grid_points: 64
+  min_valid_points: 16
+
+processing:
+  start_date: "2024-08-09"
+  end_date: "2024-08-15"
+  allow_missing_mag: false
+
+event:
+  baseline_start: "2024-08-09 00:00:00"
+  baseline_end: "2024-08-10 08:30:00"
+  shock_time: "2024-08-10T12:50:00"
+  shock_reference_is_approximate: true
+  sheath_end_icme_start: "2024-08-11T12:00:00"
+  icme_end: "2024-08-14T00:00:00"
+  ground_truth_note: "12:50 UTC is a legacy approximate internal benchmark; do not report detector offset as validated lead time."
+  reference_markers:
+    aspex_swis_reported_shock: "2024-08-10T09:33:00"
+    nasa_ccmc_combined_front: "2024-08-10T11:55:00"
+    legacy_internal_benchmark: "2024-08-10T12:50:00"
+
+detector:
+  watch_threshold_combined: 2.8122751666908123
+  sustained_conventional_threshold: 3.0
+  conventional_plasma_weight: 0.925
+  transition_threshold: 8.0
+  transition_lag_minutes: 4
+  transition_min_run_minutes: 2
+  alert_after_transition_minutes: 1
+  candidate_window_minutes: 35
+  transition_weights:
+    bmag_gse: 0.35
+    proton_bulk_speed: 0.25
+    proton_thermal: 0.15
+    proton_density: 0.10
+    js_opdi: 0.15
+  transition_step_baseline:
+    bmag_gse:
+      median_step: 0.14208507537841797
+      scale_step: 0.14665011348724363
+      weight: 0.35
+    proton_bulk_speed:
+      median_step: 5.942427385368035
+      scale_step: 5.538786825610111
+      weight: 0.25
+    proton_thermal:
+      median_step: 1.546027328047149
+      scale_step: 1.780992579041263
+      weight: 0.15
+    proton_density:
+      median_step: 0.6092925730448902
+      scale_step: 0.6202940001472337
+      weight: 0.10
+    js_opdi:
+      median_step: 0.004768596668734391
+      scale_step: 0.005200480317682181
+      weight: 0.15
