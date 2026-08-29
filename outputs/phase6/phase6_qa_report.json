@@ -1,0 +1,62 @@
+{
+  "project": "TopoCross-SWIS Phase 6 baseline ML QA",
+  "passed": true,
+  "checks": [
+    {
+      "name": "all_phase6_outputs_exist",
+      "passed": true,
+      "detail": "phase6_predictions.csv, phase6_fold_metrics.csv, phase6_summary_metrics.csv, phase6_detection_delays.csv, phase6_feature_importance.csv, phase6_feature_selection.csv, phase6_feature_list.csv, phase6_report.json"
+    },
+    {
+      "name": "three_required_models",
+      "passed": true,
+      "detail": "['Logistic Regression', 'Random Forest', 'Gradient Boosting']"
+    },
+    {
+      "name": "four_eventwise_folds",
+      "passed": true,
+      "detail": "4"
+    },
+    {
+      "name": "no_interval_leakage",
+      "passed": true,
+      "detail": "[{'held_out_interval': 'AUG2024_DEMO_INTERVAL', 'train_intervals': ['MAR2025_CIR_HSS_INTERVAL', 'OCT2024_ICME_INTERVAL', 'SEP2024_QUIET_INTERVAL'], 'test_intervals': ['AUG2024_DEMO_INTERVAL'], 'interval_leakage': False}, {'held_out_interval': 'MAR2025_CIR_HSS_INTERVAL', 'train_intervals': ['AUG2024_DEMO_INTERVAL', 'OCT2024_ICME_INTERVAL', 'SEP2024_QUIET_INTERVAL'], 'test_intervals': ['MAR2025_CIR_HSS_INTERVAL'], 'interval_leakage': False}, {'held_out_interval': 'OCT2024_ICME_INTERVAL', 'train_intervals': ['AUG2024_DEMO_INTERVAL', 'MAR2025_CIR_HSS_INTERVAL', 'SEP2024_QUIET_INTERVAL'], 'test_intervals': ['OCT2024_ICME_INTERVAL'], 'interval_leakage': False}, {'held_out_interval': 'SEP2024_QUIET_INTERVAL', 'train_intervals': ['AUG2024_DEMO_INTERVAL', 'MAR2025_CIR_HSS_INTERVAL', 'OCT2024_ICME_INTERVAL'], 'test_intervals': ['SEP2024_QUIET_INTERVAL'], 'interval_leakage': False}]"
+    },
+    {
+      "name": "november_excluded",
+      "passed": true,
+      "detail": "['AUG2024_DEMO_INTERVAL', 'MAR2025_CIR_HSS_INTERVAL', 'OCT2024_ICME_INTERVAL', 'SEP2024_QUIET_INTERVAL']"
+    },
+    {
+      "name": "label_free_features",
+      "passed": true,
+      "detail": "features=79"
+    },
+    {
+      "name": "probabilities_valid",
+      "passed": true,
+      "detail": "min=0.0, max=1.0"
+    },
+    {
+      "name": "exploratory_guardrail",
+      "passed": true,
+      "detail": "COMPLETE_EXPLORATORY_BASELINE_ML / EXPLORATORY_NOT_RESEARCH_READY"
+    },
+    {
+      "name": "three_model_artifacts",
+      "passed": true,
+      "detail": "['gradient_boosting.joblib', 'logistic_regression.joblib', 'random_forest.joblib']"
+    },
+    {
+      "name": "saved_models_reload_and_predict",
+      "passed": true,
+      "detail": "gradient_boosting.joblib: ok; logistic_regression.joblib: ok; random_forest.joblib: ok"
+    },
+    {
+      "name": "phase4_to_phase6_tests_pass",
+      "passed": true,
+      "detail": ".........                                                                [100%]\n9 passed in 15.60s"
+    }
+  ],
+  "full_suite_environment_note": "The complete legacy test suite additionally requires cdflib, netCDF4, and streamlit. Those packages are declared in requirements.txt but could not be installed in this offline QA runtime."
+}

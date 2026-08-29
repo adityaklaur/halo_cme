@@ -1,0 +1,36 @@
+event_id,event_class,modality,coverage_fraction,passes_threshold,required_for_contract,detail
+AUG2024_QUIET_CONTROL_01,QUIET,TH1,1.0,True,True,available
+AUG2024_QUIET_CONTROL_01,QUIET,TH2,1.0,True,True,available
+AUG2024_QUIET_CONTROL_01,QUIET,BLK,1.0,True,True,feature-column completeness
+AUG2024_QUIET_CONTROL_01,QUIET,MAG,1.0,True,True,feature-column completeness
+AUG2024_QUIET_CONTROL_01,QUIET,OMNI_REFERENCE,0.0,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+AUG2024_COMPLEX_ICME_01,COMPLEX_ICME,TH1,1.0,True,True,available
+AUG2024_COMPLEX_ICME_01,COMPLEX_ICME,TH2,1.0,True,True,available
+AUG2024_COMPLEX_ICME_01,COMPLEX_ICME,BLK,0.9984759001714613,True,True,feature-column completeness
+AUG2024_COMPLEX_ICME_01,COMPLEX_ICME,MAG,1.0,True,True,feature-column completeness
+AUG2024_COMPLEX_ICME_01,COMPLEX_ICME,OMNI_REFERENCE,0.0,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+AUG2024_POST_EVENT_CONTROL_01,POST_ICME,TH1,0.9996527777777777,True,True,available
+AUG2024_POST_EVENT_CONTROL_01,POST_ICME,TH2,0.9996527777777777,True,True,available
+AUG2024_POST_EVENT_CONTROL_01,POST_ICME,BLK,0.9982638888888888,True,True,feature-column completeness
+AUG2024_POST_EVENT_CONTROL_01,POST_ICME,MAG,0.9864583333333333,True,True,feature-column completeness
+AUG2024_POST_EVENT_CONTROL_01,POST_ICME,OMNI_REFERENCE,0.0,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+OCT2024_COMPLEX_ICME_01,COMPLEX_ICME,TH1,1.0,True,True,available
+OCT2024_COMPLEX_ICME_01,COMPLEX_ICME,TH2,1.0,True,True,available
+OCT2024_COMPLEX_ICME_01,COMPLEX_ICME,BLK,0.9765873015873016,True,True,feature-column completeness
+OCT2024_COMPLEX_ICME_01,COMPLEX_ICME,MAG,1.0,True,True,feature-column completeness
+OCT2024_COMPLEX_ICME_01,COMPLEX_ICME,OMNI_REFERENCE,0.8174603174603174,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+SEP2024_QUIET_CONTROL_01,QUIET,TH1,1.0,True,True,available
+SEP2024_QUIET_CONTROL_01,QUIET,TH2,1.0,True,True,available
+SEP2024_QUIET_CONTROL_01,QUIET,BLK,1.0,True,True,feature-column completeness
+SEP2024_QUIET_CONTROL_01,QUIET,MAG,1.0,True,True,feature-column completeness
+SEP2024_QUIET_CONTROL_01,QUIET,OMNI_REFERENCE,0.8888888888888888,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+NOV2024_ORIENTATION_CONTROL_01,ORIENTATION_CONTROL,TH1,0.0,False,True,available
+NOV2024_ORIENTATION_CONTROL_01,ORIENTATION_CONTROL,TH2,0.0,False,True,available
+NOV2024_ORIENTATION_CONTROL_01,ORIENTATION_CONTROL,BLK,0.0,False,True,feature-column completeness
+NOV2024_ORIENTATION_CONTROL_01,ORIENTATION_CONTROL,MAG,0.0,False,True,feature-column completeness
+NOV2024_ORIENTATION_CONTROL_01,ORIENTATION_CONTROL,OMNI_REFERENCE,0.6898047722342733,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities
+MAR2025_CIR_HSS_01,CIR_SIR,TH1,1.0,True,True,available
+MAR2025_CIR_HSS_01,CIR_SIR,TH2,1.0,True,True,available
+MAR2025_CIR_HSS_01,CIR_SIR,BLK,0.9935185185185185,True,True,feature-column completeness
+MAR2025_CIR_HSS_01,CIR_SIR,MAG,1.0,True,True,feature-column completeness
+MAR2025_CIR_HSS_01,CIR_SIR,OMNI_REFERENCE,0.7986111111111112,False,False,Optional NASA near-Earth reference; never substitutes for Aditya-L1 modalities

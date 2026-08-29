@@ -1,0 +1,80 @@
+feature_group,column,description,units,formula_or_definition,uses_ground_truth_label
+conventional_raw,proton_density,Aditya-L1 conventional plasma or MAG measurement,cm^-3,,False
+conventional_raw,proton_bulk_speed,Aditya-L1 conventional plasma or MAG measurement,km/s,,False
+conventional_raw,proton_thermal,Aditya-L1 conventional plasma or MAG measurement,km/s,,False
+conventional_raw,alpha_proton_ratio,Aditya-L1 conventional plasma or MAG measurement,ratio,,False
+conventional_raw,bmag_gse,Aditya-L1 conventional plasma or MAG measurement,nT,,False
+conventional_raw,Bx_gse,Aditya-L1 conventional plasma or MAG measurement,nT,,False
+conventional_raw,By_gse,Aditya-L1 conventional plasma or MAG measurement,nT,,False
+conventional_raw,Bz_gse,Aditya-L1 conventional plasma or MAG measurement,nT,,False
+conventional_derivative,d_proton_bulk_speed_dt,One-minute time derivative within each event window,km/s/min,,False
+conventional_derivative,d_proton_density_dt,One-minute time derivative within each event window,cm^-3/min,,False
+conventional_derivative,d_bmag_gse_dt,One-minute time derivative within each event window,nT/min,,False
+conventional_rolling,proton_density_rolling_mean_5m,Past-only 5-minute rolling mean of proton_density,,,False
+conventional_rolling,proton_density_rolling_median_5m,Past-only 5-minute rolling median of proton_density,,,False
+conventional_rolling,proton_density_rolling_variance_5m,Past-only 5-minute rolling variance of proton_density,,,False
+conventional_rolling,proton_density_rolling_mean_15m,Past-only 15-minute rolling mean of proton_density,,,False
+conventional_rolling,proton_density_rolling_median_15m,Past-only 15-minute rolling median of proton_density,,,False
+conventional_rolling,proton_density_rolling_variance_15m,Past-only 15-minute rolling variance of proton_density,,,False
+conventional_rolling,proton_density_rolling_mean_60m,Past-only 60-minute rolling mean of proton_density,,,False
+conventional_rolling,proton_density_rolling_median_60m,Past-only 60-minute rolling median of proton_density,,,False
+conventional_rolling,proton_density_rolling_variance_60m,Past-only 60-minute rolling variance of proton_density,,,False
+conventional_rolling,proton_bulk_speed_rolling_mean_5m,Past-only 5-minute rolling mean of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_median_5m,Past-only 5-minute rolling median of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_variance_5m,Past-only 5-minute rolling variance of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_mean_15m,Past-only 15-minute rolling mean of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_median_15m,Past-only 15-minute rolling median of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_variance_15m,Past-only 15-minute rolling variance of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_mean_60m,Past-only 60-minute rolling mean of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_median_60m,Past-only 60-minute rolling median of proton_bulk_speed,,,False
+conventional_rolling,proton_bulk_speed_rolling_variance_60m,Past-only 60-minute rolling variance of proton_bulk_speed,,,False
+conventional_rolling,proton_thermal_rolling_mean_5m,Past-only 5-minute rolling mean of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_median_5m,Past-only 5-minute rolling median of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_variance_5m,Past-only 5-minute rolling variance of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_mean_15m,Past-only 15-minute rolling mean of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_median_15m,Past-only 15-minute rolling median of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_variance_15m,Past-only 15-minute rolling variance of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_mean_60m,Past-only 60-minute rolling mean of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_median_60m,Past-only 60-minute rolling median of proton_thermal,,,False
+conventional_rolling,proton_thermal_rolling_variance_60m,Past-only 60-minute rolling variance of proton_thermal,,,False
+conventional_rolling,alpha_proton_ratio_rolling_mean_5m,Past-only 5-minute rolling mean of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_median_5m,Past-only 5-minute rolling median of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_variance_5m,Past-only 5-minute rolling variance of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_mean_15m,Past-only 15-minute rolling mean of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_median_15m,Past-only 15-minute rolling median of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_variance_15m,Past-only 15-minute rolling variance of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_mean_60m,Past-only 60-minute rolling mean of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_median_60m,Past-only 60-minute rolling median of alpha_proton_ratio,,,False
+conventional_rolling,alpha_proton_ratio_rolling_variance_60m,Past-only 60-minute rolling variance of alpha_proton_ratio,,,False
+conventional_rolling,bmag_gse_rolling_mean_5m,Past-only 5-minute rolling mean of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_median_5m,Past-only 5-minute rolling median of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_variance_5m,Past-only 5-minute rolling variance of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_mean_15m,Past-only 15-minute rolling mean of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_median_15m,Past-only 15-minute rolling median of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_variance_15m,Past-only 15-minute rolling variance of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_mean_60m,Past-only 60-minute rolling mean of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_median_60m,Past-only 60-minute rolling median of bmag_gse,,,False
+conventional_rolling,bmag_gse_rolling_variance_60m,Past-only 60-minute rolling variance of bmag_gse,,,False
+compression,density_compression_ratio,Density relative to its past rolling median,,past baseline=15 min,False
+compression,bmag_compression_ratio,Magnetic-field magnitude relative to its past rolling median,,past baseline=15 min,False
+compression,speed_compression_ratio,Bulk speed relative to its past rolling median,,past baseline=15 min,False
+compression,dynamic_pressure_proxy,Density times squared bulk speed; proportional pressure proxy,,past baseline=15 min,False
+compression,dynamic_pressure_compression_ratio,Pressure proxy relative to its past rolling median,,past baseline=15 min,False
+compression,joint_compression_index,"Joint positive compression of density, |B| and speed",,past baseline=15 min,False
+cross_plane_opdi,js_opdi,Cross-plane distribution divergence from Phase 1/2,,,False
+cross_plane_opdi,hellinger_opdi,Cross-plane distribution divergence from Phase 1/2,,,False
+cross_plane_opdi,wasserstein_opdi,Cross-plane distribution divergence from Phase 1/2,,,False
+cross_plane_derivative,d_js_opdi_dt,Time derivative of OPDI; d_opdi_dt uses JS as canonical OPDI,,,False
+cross_plane_derivative,d_hellinger_opdi_dt,Time derivative of OPDI; d_opdi_dt uses JS as canonical OPDI,,,False
+cross_plane_derivative,d_wasserstein_opdi_dt,Time derivative of OPDI; d_opdi_dt uses JS as canonical OPDI,,,False
+cross_plane_derivative,d_opdi_dt,Time derivative of OPDI; d_opdi_dt uses JS as canonical OPDI,,,False
+cross_plane_rolling,opdi_rolling_mean,Past-only 15-minute rolling statistic of JS OPDI,,,False
+cross_plane_rolling,opdi_rolling_median,Past-only 15-minute rolling statistic of JS OPDI,,,False
+cross_plane_rolling,opdi_rolling_variance,Past-only 15-minute rolling statistic of JS OPDI,,,False
+cross_plane_anomaly,opdi_anomaly,Absolute robust z-score of JS OPDI against a past-only quiet-like local baseline,,,False
+cross_plane_anomaly,opdi_persistence,Consecutive minutes for which OPDI anomaly exceeds the configured threshold,min,,False
+cross_plane_shape,th1_th2_cosine_similarity,Cosine similarity between normalized TH1 and TH2 energy spectra,ratio,,False
+cross_plane_shape,th1_th2_spectral_angle_rad,Spectral angle between normalized TH1 and TH2 energy spectra,rad,,False
+cross_plane_shape,crossplane_centroid_delta_ev,TH1 minus TH2 spectral centroid,eV,,False
+cross_plane_shape,crossplane_width_delta_ev,TH1 minus TH2 spectral width,eV,,False
+cross_plane_shape,crossplane_log_peak_energy_ratio,Log ratio of TH1 to TH2 peak energy,log ratio,,False

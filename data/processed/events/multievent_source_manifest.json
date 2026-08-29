@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "sources": {
+    "oct2024": {
+      "feature_file": "data/processed/events/oct2024_features_1min.csv",
+      "spectra_file": "data/processed/events/oct2024_spectra_1min.npz",
+      "report_file": "data/processed/events/oct2024_report.json",
+      "missing_swis_dates": [
+        "20241012"
+      ],
+      "partial_swis_dates": [
+        "20241013"
+      ],
+      "missing_mag_dates": [],
+      "partial_mag_dates": [
+        "20241012"
+      ],
+      "aditya_complete_fraction": 0.6590277777777778,
+      "omni_fully_valid_fraction": 0.7730324074074074
+    },
+    "mar2025": {
+      "feature_file": "data/processed/events/mar2025_features_1min.csv",
+      "spectra_file": "data/processed/events/mar2025_spectra_1min.npz",
+      "report_file": "data/processed/events/mar2025_report.json",
+      "missing_swis_dates": [],
+      "partial_swis_dates": [
+        "20250311"
+      ],
+      "missing_mag_dates": [],
+      "partial_mag_dates": [
+        "20250311"
+      ],
+      "aditya_complete_fraction": 0.8934722222222222,
+      "omni_fully_valid_fraction": 0.7947222222222222
+    },
+    "sep2024": {
+      "feature_file": "data/processed/events/sep2024_features_1min.csv",
+      "spectra_file": "data/processed/events/sep2024_spectra_1min.npz",
+      "report_file": "data/processed/events/sep2024_report.json",
+      "missing_swis_dates": [],
+      "partial_swis_dates": [
+        "20240924",
+        "20240926"
+      ],
+      "missing_mag_dates": [],
+      "partial_mag_dates": [
+        "20240924"
+      ],
+      "aditya_complete_fraction": 0.6340277777777777,
+      "omni_fully_valid_fraction": 0.7830555555555555
+    },
+    "nov2024": {
+      "feature_file": "data/processed/events/nov2024_features_1min.csv",
+      "spectra_file": "data/processed/events/nov2024_spectra_1min.npz",
+      "report_file": "data/processed/events/nov2024_report.json",
+      "missing_swis_dates": [
+        "20241124",
+        "20241125",
+        "20241126"
+      ],
+      "partial_swis_dates": [],
+      "missing_mag_dates": [
+        "20241125",
+        "20241126"
+      ],
+      "partial_mag_dates": [],
+      "aditya_complete_fraction": 0.0,
+      "omni_fully_valid_fraction": 0.6638888888888889
+    }
+  }
+}

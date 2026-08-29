@@ -1,0 +1,199 @@
+{
+  "date_range": {
+    "start": "2025-03-07",
+    "end": "2025-03-11"
+  },
+  "processed_dates": [
+    "20250307",
+    "20250308",
+    "20250309",
+    "20250310",
+    "20250311"
+  ],
+  "missing_swis_dates": [],
+  "partial_swis_dates": [
+    "20250311"
+  ],
+  "missing_mag_dates": [],
+  "partial_mag_dates": [
+    "20250311"
+  ],
+  "daily_mag_coverage": {
+    "20250307": 1.0,
+    "20250308": 1.0,
+    "20250309": 1.0,
+    "20250310": 1.0,
+    "20250311": 0.4875
+  },
+  "aditya_complete_fraction": 0.8934722222222222,
+  "omni": {
+    "records": 7200,
+    "start": "2025-03-07 00:00:00",
+    "end": "2025-03-11 23:59:00",
+    "expected_start": "2025-03-07 00:00:00",
+    "expected_end": "2025-03-11 23:59:00",
+    "continuous_minute_index": true,
+    "duplicate_timestamps": 0,
+    "fully_valid_records": 5722,
+    "fully_valid_fraction": 0.7947222222222222
+  },
+  "omni_role": "External near-Earth conventional-data reference; never substituted for Aditya-L1 SWIS OPDI.",
+  "daily_swis_quality": {
+    "20250307": {
+      "records": 17275,
+      "start": "2025-03-07 00:00:29.031000",
+      "end": "2025-03-07 23:59:59.791000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.608840520984081,
+      "th2_finite_flux_fraction": 0.6968891461649783,
+      "status": "AVAILABLE"
+    },
+    "20250308": {
+      "records": 17274,
+      "start": "2025-03-08 00:00:29.792000",
+      "end": "2025-03-08 23:59:55.549000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6728389487090425,
+      "th2_finite_flux_fraction": 0.7363054301262012,
+      "status": "AVAILABLE"
+    },
+    "20250309": {
+      "records": 17234,
+      "start": "2025-03-09 00:00:30.549000",
+      "end": "2025-03-09 23:59:56.308000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6618324242775908,
+      "th2_finite_flux_fraction": 0.7090135778113033,
+      "status": "AVAILABLE"
+    },
+    "20250310": {
+      "records": 17275,
+      "start": "2025-03-10 00:00:26.308000",
+      "end": "2025-03-10 23:59:57.070000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6147033285094067,
+      "th2_finite_flux_fraction": 0.6878448625180897,
+      "status": "AVAILABLE"
+    },
+    "20250311": {
+      "records": 8636,
+      "start": "2025-03-11 12:00:22.450000",
+      "end": "2025-03-11 23:59:57.834000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 0.5,
+      "th1_finite_flux_fraction": 0.5983024548402038,
+      "th2_finite_flux_fraction": 0.6858036127836962,
+      "status": "AVAILABLE"
+    }
+  },
+  "source_files": [
+    {
+      "filename": "L2_AL1_MAG_20250307_V00.nc",
+      "bytes": 263765,
+      "sha256": "b47007b26e4aeac31a74b2abf55681aedd752c9ae1dedd312ea5e0e0d4b54c5c"
+    },
+    {
+      "filename": "L2_AL1_MAG_20250308_V00.nc",
+      "bytes": 266411,
+      "sha256": "0e75939864f12b143175cc08ee2b3f9468dfb6ac97b13854dd432019f11d757f"
+    },
+    {
+      "filename": "L2_AL1_MAG_20250309_V00.nc",
+      "bytes": 271355,
+      "sha256": "ebabea16d0d015cfcf89cb1d28cec85b67cc2e49577c7ed154204e23ca53cff4"
+    },
+    {
+      "filename": "L2_AL1_MAG_20250310_V00.nc",
+      "bytes": 268428,
+      "sha256": "fbf79a06a6a06450302f537eb6f642e47abd8c7637101f85ff6a0b81c3764a97"
+    },
+    {
+      "filename": "L2_AL1_MAG_20250311_V00.nc",
+      "bytes": 168725,
+      "sha256": "6d0ebf423bd9b87d49c752d52f625df0ebca3f10cfb90364c745ac2e2888a56f"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20250307_UNP_9999_999999_V03.cdf",
+      "bytes": 1157242,
+      "sha256": "73af8dfeb917d4bf37014ee610e5c70945dd92cb2d7c34e26ed63a99ced6a15b"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20250308_UNP_9999_999999_V03.cdf",
+      "bytes": 1133531,
+      "sha256": "6ffa53dd9c02804c9ef14b99e8622614ed65e2113af6b7872e2a3ae193d57ff4"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20250309_UNP_9999_999999_V03.cdf",
+      "bytes": 1072035,
+      "sha256": "fd125e53c69676ee5c9b46e2ddc399c4e8e4525cb81b58bedb1e4f71640b2bc9"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20250310_UNP_9999_999999_V03.cdf",
+      "bytes": 1087185,
+      "sha256": "b680fb2d1a4f04eb5f8902576d09800929918d2ce7045afbe5bc8db80d290717"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20250311_UNP_9999_999999_V03.cdf",
+      "bytes": 548737,
+      "sha256": "98aa913386ed78b1187c0b3aacb119ef3c4e2fb2c9c5a77ff884192275e6c2ba"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20250307_UNP_9999_999999_V03.cdf",
+      "bytes": 21185174,
+      "sha256": "300acbae65147cd9f0c50d97fcf6fa1c03b9fbd8fa3de6283329d24bdb4e2fd8"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20250308_UNP_9999_999999_V03.cdf",
+      "bytes": 22491534,
+      "sha256": "46ba40ae09bc0885de2c880b78e4d97e07dc9533cfe206e05074d5b0ff5c5399"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20250309_UNP_9999_999999_V03.cdf",
+      "bytes": 21947882,
+      "sha256": "8b5ce6e1e4c6708efe026dc5724b234816a4f4bab2a0a5e3ebdf26bee7e53f08"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20250310_UNP_9999_999999_V03.cdf",
+      "bytes": 21177373,
+      "sha256": "bceb692774ef75b4cc48a875f56ecf113d3dcc0ec7f34507a4cfb7b179537c53"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20250311_UNP_9999_999999_V03.cdf",
+      "bytes": 10437065,
+      "sha256": "a0a28f41c3d6ff9dda9377fafddee2a12624049fe6e0aebe093058ee678a7478"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20250307_UNP_9999_999999_V03.cdf",
+      "bytes": 24582814,
+      "sha256": "2de758d415e6b3ed6aff29a51bf36014c24593c404927036029c5d91fbb7ef84"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20250308_UNP_9999_999999_V03.cdf",
+      "bytes": 25476300,
+      "sha256": "88e9342f426774c8166e42e6396a7286eb702beededa849ab72166efcdceafb3"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20250309_UNP_9999_999999_V03.cdf",
+      "bytes": 24713847,
+      "sha256": "df9a9a4ebbcffe36eae48d1abec7a1f34d62e8513ac0f3680f498bfa2adcf8d8"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20250310_UNP_9999_999999_V03.cdf",
+      "bytes": 24052109,
+      "sha256": "f149727cd7ae0b7cf4e740e5e9d02e47083f2908c119572a2f764504b486bb84"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20250311_UNP_9999_999999_V03.cdf",
+      "bytes": 11861585,
+      "sha256": "e63faf512842fe9a6ff1396d0fb093db437aeebf7a6046358d3c31db755c00a1"
+    }
+  ],
+  "source_id": "mar2025",
+  "label_source": "https://www.sidc.be/article/coronal-hole",
+  "omni_source_url": "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2025-03-07T00:00:00Z&time.max=2025-03-12T00:00:00Z&format=csv",
+  "normalized_omni_file": "data/external/omni/mar2025_omni_1min.csv"
+}

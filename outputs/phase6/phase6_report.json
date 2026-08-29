@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "phase": 6,
+  "experiment_name": "Phase 6 baseline machine-learning comparison",
+  "status": "COMPLETE_EXPLORATORY_BASELINE_ML",
+  "evidence_status": "EXPLORATORY_NOT_RESEARCH_READY",
+  "target": "icme_binary",
+  "eligible_rows": 16602,
+  "independent_ready_intervals": [
+    "AUG2024_DEMO_INTERVAL",
+    "MAR2025_CIR_HSS_INTERVAL",
+    "OCT2024_ICME_INTERVAL",
+    "SEP2024_QUIET_INTERVAL"
+  ],
+  "folds": 4,
+  "models": {
+    "Logistic Regression": {
+      "type": "logistic_regression",
+      "C": 1.0,
+      "max_iter": 2500,
+      "class_weight": "balanced"
+    },
+    "Random Forest": {
+      "type": "random_forest",
+      "n_estimators": 200,
+      "min_samples_leaf": 5,
+      "max_features": "sqrt",
+      "class_weight": "balanced_subsample"
+    },
+    "Gradient Boosting": {
+      "type": "hist_gradient_boosting",
+      "max_iter": 120,
+      "learning_rate": 0.06,
+      "max_leaf_nodes": 15,
+      "min_samples_leaf": 20,
+      "l2_regularization": 1.0
+    }
+  },
+  "feature_source": "All label-free features declared by the Phase 4 feature dictionary",
+  "candidate_feature_count": 79,
+  "final_selected_feature_count": 79,
+  "prediction_threshold": 0.5,
+  "persistence_minutes": 3,
+  "primary_metric": "pr_auc",
+  "model_ranking": [
+    "Logistic Regression",
+    "Gradient Boosting",
+    "Random Forest"
+  ],
+  "summary_metrics": [
+    {
+      "model": "Logistic Regression",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "tn": 3771,
+      "fp": 5388,
+      "fn": 2923,
+      "tp": 4520,
+      "precision": 0.4561970125151393,
+      "recall": 0.6072820099422276,
+      "f1": 0.5210074347299868,
+      "pr_auc": 0.5169605016148797,
+      "roc_auc": 0.5295528250757731,
+      "false_alarm_episodes": 74,
+      "false_alarms_per_day": 11.63445791025221,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 8.0,
+      "missed_events": 0
+    },
+    {
+      "model": "Random Forest",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "tn": 4208,
+      "fp": 4951,
+      "fn": 5363,
+      "tp": 2080,
+      "precision": 0.29583274071967003,
+      "recall": 0.2794572081150074,
+      "f1": 0.28741191101285063,
+      "pr_auc": 0.32874643685138893,
+      "roc_auc": 0.30082148365867156,
+      "false_alarm_episodes": 65,
+      "false_alarms_per_day": 10.219456272518833,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 1128.0,
+      "missed_events": 0
+    },
+    {
+      "model": "Gradient Boosting",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "tn": 5312,
+      "fp": 3847,
+      "fn": 5931,
+      "tp": 1512,
+      "precision": 0.2821421907072215,
+      "recall": 0.20314389359129384,
+      "f1": 0.23621309170442117,
+      "pr_auc": 0.37090869567625506,
+      "roc_auc": 0.4134641750939634,
+      "false_alarm_episodes": 52,
+      "false_alarms_per_day": 8.175565018015067,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 1253.0,
+      "missed_events": 0
+    }
+  ],
+  "leakage_checks": [
+    {
+      "held_out_interval": "AUG2024_DEMO_INTERVAL",
+      "train_intervals": [
+        "MAR2025_CIR_HSS_INTERVAL",
+        "OCT2024_ICME_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "AUG2024_DEMO_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "MAR2025_CIR_HSS_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "OCT2024_ICME_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "MAR2025_CIR_HSS_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "OCT2024_ICME_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "MAR2025_CIR_HSS_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "OCT2024_ICME_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "SEP2024_QUIET_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "MAR2025_CIR_HSS_INTERVAL",
+        "OCT2024_ICME_INTERVAL"
+      ],
+      "test_intervals": [
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "interval_leakage": false
+    }
+  ],
+  "model_artifacts": {
+    "Logistic Regression": "outputs/phase6/models/logistic_regression.joblib",
+    "Random Forest": "outputs/phase6/models/random_forest.joblib",
+    "Gradient Boosting": "outputs/phase6/models/gradient_boosting.joblib"
+  },
+  "scientific_guardrails": [
+    "Independent source intervals, not individual minutes, are held out for evaluation.",
+    "Feature availability filtering, imputation, scaling, class balancing, and model fitting are learned only from each training fold.",
+    "Only Phase 4 features explicitly marked as not using ground-truth labels are admitted to the model matrix.",
+    "The same probability threshold and temporal persistence rule are applied to all three models for a transparent baseline comparison.",
+    "November orientation-control rows remain excluded because required Aditya-L1 modalities are incomplete.",
+    "The current four ready independent intervals are too few for confirmatory model-selection claims; Phase 6 results are exploratory.",
+    "Saved full-data models are convenience artifacts, not deployment-ready or independently validated models.",
+    "Detection timing is reported as detection delay/offset, not early warning."
+  ],
+  "outputs": {
+    "predictions": "outputs/phase6/phase6_predictions.csv",
+    "fold_metrics": "outputs/phase6/phase6_fold_metrics.csv",
+    "summary_metrics": "outputs/phase6/phase6_summary_metrics.csv",
+    "detection_delays": "outputs/phase6/phase6_detection_delays.csv",
+    "feature_importance": "outputs/phase6/phase6_feature_importance.csv",
+    "feature_selection": "outputs/phase6/phase6_feature_selection.csv",
+    "feature_list": "outputs/phase6/phase6_feature_list.csv",
+    "report": "outputs/phase6/phase6_report.json"
+  }
+}

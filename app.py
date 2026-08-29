@@ -20,10 +20,59 @@ from src.dashboard_utils import fingerprint_figure, overview_figure
 
 ROOT = Path(__file__).resolve().parent
 PROC = ROOT / "data" / "processed"
+SCI = ROOT / "data" / "scientific"
+PHASE3 = ROOT / "outputs" / "phase3"
+PHASE4 = ROOT / "outputs" / "phase4"
+PHASE5 = ROOT / "outputs" / "phase5"
+PHASE6 = ROOT / "outputs" / "phase6"
 ENABLE_DATA_MANAGER = False
 
 
-st.set_page_config(page_title="TopoCross-SWIS - Aug 2024", layout="wide")
+REPLAY_DATASETS = {
+    "August 2024": {
+        "source_id": "aug2024",
+        "feature_file": PROC / "aug2024_features_1min.csv",
+        "spectra_file": PROC / "aug2024_spectra_1min.npz",
+        "report_file": PROC / "pipeline_report.json",
+        "detector_available": True,
+        "phase6_interval_id": "AUG2024_DEMO_INTERVAL",
+    },
+    "September 2024": {
+        "source_id": "sep2024",
+        "feature_file": PROC / "events" / "sep2024_features_1min.csv",
+        "spectra_file": PROC / "events" / "sep2024_spectra_1min.npz",
+        "report_file": PROC / "events" / "sep2024_report.json",
+        "detector_available": False,
+        "phase6_interval_id": "SEP2024_QUIET_INTERVAL",
+    },
+    "October 2024": {
+        "source_id": "oct2024",
+        "feature_file": PROC / "events" / "oct2024_features_1min.csv",
+        "spectra_file": PROC / "events" / "oct2024_spectra_1min.npz",
+        "report_file": PROC / "events" / "oct2024_report.json",
+        "detector_available": False,
+        "phase6_interval_id": "OCT2024_ICME_INTERVAL",
+    },
+    "November 2024": {
+        "source_id": "nov2024",
+        "feature_file": PROC / "events" / "nov2024_features_1min.csv",
+        "spectra_file": PROC / "events" / "nov2024_spectra_1min.npz",
+        "report_file": PROC / "events" / "nov2024_report.json",
+        "detector_available": False,
+        "phase6_interval_id": None,
+    },
+    "March 2025": {
+        "source_id": "mar2025",
+        "feature_file": PROC / "events" / "mar2025_features_1min.csv",
+        "spectra_file": PROC / "events" / "mar2025_spectra_1min.npz",
+        "report_file": PROC / "events" / "mar2025_report.json",
+        "detector_available": False,
+        "phase6_interval_id": "MAR2025_CIR_HSS_INTERVAL",
+    },
+}
+
+
+st.set_page_config(page_title="TopoCross-SWIS - Phases 2 to 6", layout="wide")
 
 
 @st.cache_data(show_spinner=False)
@@ -36,7 +85,213 @@ def load_all():
     candidates = pd.read_csv(PROC / "cme_candidate_ranking.csv", parse_dates=["cme_time"])
     tests = pd.read_csv(PROC / "state_statistical_tests.csv")
     labels = pd.read_csv(ROOT / "data" / "labels" / "event_boundaries.csv", parse_dates=["boundary_time_utc"])
-    return df, spec, report, candidates, tests, labels
+    phase2_catalog = pd.read_csv(SCI / "phase2_event_catalog.csv", parse_dates=["start_utc", "end_utc"])
+    phase2_coverage = pd.read_csv(SCI / "phase2_modality_coverage.csv")
+    phase2_queue = pd.read_csv(SCI / "phase2_acquisition_queue.csv")
+    with open(SCI / "phase2_manifest.json", "r", encoding="utf-8") as file:
+        phase2_manifest = json.load(file)
+    phase3_counts = pd.read_csv(PHASE3 / "phase3_label_counts.csv")
+    phase3_events = pd.read_csv(PHASE3 / "phase3_event_register.csv", parse_dates=["event_start", "event_end"])
+    phase3_boundaries = pd.read_csv(PHASE3 / "phase3_boundary_register.csv", parse_dates=["boundary_time_utc"])
+    with open(PHASE3 / "phase3_report.json", "r", encoding="utf-8") as file:
+        phase3_report = json.load(file)
+    phase4_summary = pd.read_csv(PHASE4 / "phase4_event_summary.csv")
+    phase4_dictionary = pd.read_csv(PHASE4 / "phase4_feature_dictionary.csv")
+    with open(PHASE4 / "phase4_report.json", "r", encoding="utf-8") as file:
+        phase4_report = json.load(file)
+    phase5_summary = pd.read_csv(PHASE5 / "phase5_summary_metrics.csv")
+    phase5_folds = pd.read_csv(PHASE5 / "phase5_fold_metrics.csv")
+    phase5_delays = pd.read_csv(PHASE5 / "phase5_detection_delays.csv", parse_dates=["reference_positive_onset", "detected_at"])
+    with open(PHASE5 / "phase5_report.json", "r", encoding="utf-8") as file:
+        phase5_report = json.load(file)
+    phase6_summary = pd.read_csv(PHASE6 / "phase6_summary_metrics.csv")
+    phase6_folds = pd.read_csv(PHASE6 / "phase6_fold_metrics.csv")
+    phase6_importance = pd.read_csv(PHASE6 / "phase6_feature_importance.csv")
+    phase6_delays = pd.read_csv(PHASE6 / "phase6_detection_delays.csv", parse_dates=["reference_positive_onset", "detected_at"])
+    with open(PHASE6 / "phase6_report.json", "r", encoding="utf-8") as file:
+        phase6_report = json.load(file)
+    return (
+        df,
+        spec,
+        report,
+        candidates,
+        tests,
+        labels,
+        phase2_catalog,
+        phase2_coverage,
+        phase2_queue,
+        phase2_manifest,
+        phase3_counts,
+        phase3_events,
+        phase3_boundaries,
+        phase3_report,
+        phase4_summary,
+        phase4_dictionary,
+        phase4_report,
+        phase5_summary,
+        phase5_folds,
+        phase5_delays,
+        phase5_report,
+        phase6_summary,
+        phase6_folds,
+        phase6_importance,
+        phase6_delays,
+        phase6_report,
+    )
+
+
+DETECTOR_FLOAT_COLUMNS = [
+    "z_js_opdi",
+    "z_hellinger_opdi",
+    "z_wasserstein_opdi",
+    "z_proton_bulk_speed",
+    "z_proton_density",
+    "z_proton_thermal",
+    "z_alpha_proton_ratio",
+    "z_bmag_gse",
+    "z_Bx_gse",
+    "z_By_gse",
+    "z_Bz_gse",
+    "opdi_anomaly_score",
+    "plasma_anomaly_score",
+    "mag_anomaly_score",
+    "conventional_anomaly_score",
+    "combined_anomaly_score",
+    "transition_component_bmag_gse",
+    "transition_component_proton_bulk_speed",
+    "transition_component_proton_thermal",
+    "transition_component_proton_density",
+    "transition_component_js_opdi",
+    "transition_score",
+]
+
+
+def ensure_replay_columns(frame: pd.DataFrame) -> pd.DataFrame:
+    """Normalize every processed source to the columns used by the replay UI.
+
+    August contains the prototype detector outputs. The independent September,
+    October, November and March products intentionally contain measured and
+    processed observables only. Missing detector columns therefore remain NaN;
+    they are never inferred from labels or substituted with OMNI values.
+    """
+    out = frame.copy()
+    out["timestamp"] = pd.to_datetime(out["timestamp"])
+    for column in DETECTOR_FLOAT_COLUMNS:
+        if column not in out.columns:
+            out[column] = np.nan
+    if "transition_threshold_exceeded" not in out.columns:
+        out["transition_threshold_exceeded"] = False
+    if "is_change_point" not in out.columns:
+        out["is_change_point"] = False
+    else:
+        out["is_change_point"] = out["is_change_point"].fillna(False).astype(bool)
+    if "state" not in out.columns:
+        out["state"] = "NOT AVAILABLE"
+    else:
+        out["state"] = out["state"].fillna("NOT AVAILABLE").astype(str)
+    if "ground_truth_state" not in out.columns:
+        out["ground_truth_state"] = np.nan
+    return out.sort_values("timestamp").reset_index(drop=True)
+
+
+@st.cache_data(show_spinner=False)
+def load_replay_dataset(label: str):
+    meta = REPLAY_DATASETS[label]
+    frame = ensure_replay_columns(pd.read_csv(meta["feature_file"], parse_dates=["timestamp"]))
+    with np.load(meta["spectra_file"]) as npz:
+        spectra = {key: npz[key] for key in npz.files}
+    with open(meta["report_file"], "r", encoding="utf-8") as file:
+        source_report = json.load(file)
+    return frame, spectra, source_report
+
+
+@st.cache_data(show_spinner=False)
+def load_phase6_predictions() -> pd.DataFrame:
+    """Load minute-level Phase 6 held-out predictions for dashboard replay."""
+    path = PHASE6 / "phase6_predictions.csv"
+    if not path.exists():
+        return pd.DataFrame(
+            columns=[
+                "independent_interval_id",
+                "timestamp",
+                "model",
+                "probability",
+                "raw_predicted_binary",
+                "predicted_binary",
+            ]
+        )
+    predictions = pd.read_csv(path, parse_dates=["timestamp"])
+    predictions["timestamp"] = pd.to_datetime(predictions["timestamp"])
+    return predictions
+
+
+def phase6_prediction_at(
+    predictions: pd.DataFrame,
+    interval_id: str | None,
+    timestamp: pd.Timestamp,
+    model: str | None = None,
+) -> dict | None:
+    """Return an exact held-out Phase 6 dashboard prediction for one minute.
+
+    The dashboard intentionally uses the mean probability from all available
+    Phase 6 baseline models at the exact timestamp.  Logistic Regression can
+    become numerically saturated near 0/1 on held-out intervals, which made a
+    rounded single-model confidence appear as 100% for long stretches.
+    Averaging the independent baseline probabilities produces a more useful
+    dashboard confidence without changing the formal Phase 6 model outputs,
+    thresholds, persistence rule, or evaluation metrics.
+
+    No nearest-neighbour or interpolation fallback is used.
+    """
+    if not interval_id or predictions.empty:
+        return None
+
+    matches = predictions.loc[
+        (predictions["independent_interval_id"] == interval_id)
+        & (predictions["timestamp"] == pd.Timestamp(timestamp))
+    ].copy()
+    if matches.empty:
+        return None
+
+    probabilities = pd.to_numeric(matches["probability"], errors="coerce").dropna()
+    if probabilities.empty:
+        return None
+
+    event_probability = float(np.clip(probabilities.mean(), 0.0, 1.0))
+    positive = event_probability >= 0.5
+    confidence = event_probability if positive else 1.0 - event_probability
+    model_names = sorted(matches.loc[probabilities.index, "model"].astype(str).unique())
+
+    return {
+        "prediction": "EVENT DETECTED" if positive else "NORMAL",
+        "confidence": float(np.clip(confidence, 0.0, 1.0)),
+        "event_probability": event_probability,
+        "model": "Ensemble (" + ", ".join(model_names) + ")",
+        "model_count": len(model_names),
+    }
+
+
+def replay_event_rows(catalog: pd.DataFrame, frame: pd.DataFrame) -> pd.DataFrame:
+    start = frame["timestamp"].min()
+    end = frame["timestamp"].max()
+    return catalog.loc[(catalog["end_utc"] >= start) & (catalog["start_utc"] <= end)].copy()
+
+
+def replay_boundaries(
+    replay_label: str,
+    catalog: pd.DataFrame,
+    phase3_boundaries: pd.DataFrame,
+    august_labels: pd.DataFrame,
+    frame: pd.DataFrame,
+) -> pd.DataFrame:
+    if replay_label == "August 2024":
+        return august_labels.copy()
+    events = replay_event_rows(catalog, frame)
+    return phase3_boundaries.loc[phase3_boundaries["event_id"].isin(events["event_id"])].copy()
+
+
+def fmt_metric(value, pattern: str) -> str:
+    return format(float(value), pattern) if pd.notna(value) else "NA"
 
 
 def run_rebuild():
@@ -47,6 +302,30 @@ def run_uploaded_swis_only_build():
     selected = st.session_state.get("selected_swis_only_pairs", [])
     extra_args = ["--pairs", ",".join(selected)] if selected else []
     return run_script_with_terminal_logs(ROOT / "scripts" / "build_uploaded_swis_only.py", extra_args)
+
+
+def run_phase2_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "build_phases2_and3.py")
+
+
+def run_phase3_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "phase3_ground_truth.py")
+
+
+def run_phase4_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "build_phase4_features.py")
+
+
+def run_phase5_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "run_phase5_experiment.py")
+
+
+def run_phase6_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "run_phase6_ml.py")
+
+
+def run_phases2_to6_build():
+    return run_script_with_terminal_logs(ROOT / "scripts" / "build_phases2_to6.py")
 
 
 def run_script_with_terminal_logs(script_path: Path, extra_args: list[str] | None = None) -> subprocess.CompletedProcess:
@@ -234,8 +513,8 @@ def explain_figure(row):
     return fig
 
 
-st.title("TopoCross-SWIS - August 2024")
-st.caption("Aditya-L1 ASPEX/SWIS TH1 + TH2 + BLK + MAG - real spacecraft data - research prototype")
+st.title("TopoCross-SWIS - Phases 2 to 6")
+st.caption("Aditya-L1 multi-event registry, ground truth, feature engineering, OPDI ablation, and baseline machine learning")
 
 if ENABLE_DATA_MANAGER:
     with st.sidebar:
@@ -256,7 +535,34 @@ if ENABLE_DATA_MANAGER:
                 st.code(process_output(result), language="text")
 
 try:
-    df, spec, report, candidates, tests, labels = load_all()
+    (
+        aug_df,
+        aug_spec,
+        aug_report,
+        aug_candidates,
+        tests,
+        aug_labels,
+        phase2_catalog,
+        phase2_coverage,
+        phase2_queue,
+        phase2_manifest,
+        phase3_counts,
+        phase3_events,
+        phase3_boundaries,
+        phase3_report,
+        phase4_summary,
+        phase4_dictionary,
+        phase4_report,
+        phase5_summary,
+        phase5_folds,
+        phase5_delays,
+        phase5_report,
+        phase6_summary,
+        phase6_folds,
+        phase6_importance,
+        phase6_delays,
+        phase6_report,
+    ) = load_all()
 except FileNotFoundError:
     st.warning("Processed outputs are not built yet.")
     st.code("python3 scripts/rebuild_processed.py\nstreamlit run app.py", language="bash")
@@ -271,17 +577,70 @@ except FileNotFoundError:
         st.code(process_output(result), language="text")
     st.stop()
 
-st.warning(
-    "Scientific-status note: the configured shock reference is approximate. "
-    "The detector does not use event labels as inputs; timing offsets are exploratory until the boundary is reconciled."
-)
+with st.sidebar:
+    st.header("Replay dataset")
+    selected_replay_label = st.selectbox(
+        "Processed source",
+        list(REPLAY_DATASETS.keys()),
+        index=0,
+        key="replay_dataset_selector",
+    )
 
-primary = report.get("primary_transition_nearest_configured_reference") or {}
-shock_ref = pd.Timestamp(report["configured_ground_truth"]["shock_reference"])
-default_time = pd.Timestamp(primary.get("detected_at", shock_ref))
-default_idx = int(np.argmin(np.abs((df.timestamp - default_time).dt.total_seconds().to_numpy())))
-if "replay_idx" not in st.session_state:
+selected_replay_meta = REPLAY_DATASETS[selected_replay_label]
+if selected_replay_label == "August 2024":
+    df = ensure_replay_columns(aug_df)
+    spec = aug_spec
+    replay_report = aug_report
+else:
+    df, spec, replay_report = load_replay_dataset(selected_replay_label)
+
+labels = replay_boundaries(selected_replay_label, phase2_catalog, phase3_boundaries, aug_labels, df)
+selected_events = replay_event_rows(phase2_catalog, df)
+
+if selected_replay_meta["detector_available"]:
+    st.warning(
+        "Scientific-status note: the configured August shock reference is approximate. "
+        "The detector does not use event labels as inputs; timing offsets are exploratory until the boundary is reconciled."
+    )
+else:
+    source_gaps = []
+    missing_swis = replay_report.get("missing_swis_dates", [])
+    partial_swis = replay_report.get("partial_swis_dates", [])
+    missing_mag = replay_report.get("missing_mag_dates", [])
+    partial_mag = replay_report.get("partial_mag_dates", [])
+    if missing_swis:
+        source_gaps.append("missing SWIS: " + ", ".join(missing_swis))
+    if partial_swis:
+        source_gaps.append("partial SWIS: " + ", ".join(partial_swis))
+    if missing_mag:
+        source_gaps.append("missing MAG: " + ", ".join(missing_mag))
+    if partial_mag:
+        source_gaps.append("partial MAG: " + ", ".join(partial_mag))
+    st.info(
+        f"{selected_replay_label} is loaded from the independent multi-event processed source. "
+        "Measured/processed SWIS, MAG, spectra, and OMNI reference columns are shown. "
+        "Prototype detector state/anomaly outputs were not generated for this source. "
+        "The dashboard therefore reports the prototype detector as Not Available and shows the Phase 6 held-out ML prediction separately when that exact minute was evaluated."
+    )
+    if source_gaps:
+        st.warning("Source-quality note: " + "; ".join(source_gaps))
+
+if selected_replay_label == "August 2024":
+    primary = aug_report.get("primary_transition_nearest_configured_reference") or {}
+    shock_ref = pd.Timestamp(aug_report["configured_ground_truth"]["shock_reference"])
+    default_time = pd.Timestamp(primary.get("detected_at", shock_ref))
+    reset_time = max(df.timestamp.min(), default_time - pd.Timedelta(minutes=3))
+else:
+    default_time = selected_events["start_utc"].min() if not selected_events.empty else df.timestamp.min()
+    reset_time = max(df.timestamp.min(), pd.Timestamp(default_time))
+default_idx = int(np.argmin(np.abs((df.timestamp - reset_time).dt.total_seconds().to_numpy())))
+if st.session_state.get("active_replay_dataset") != selected_replay_label:
+    st.session_state.active_replay_dataset = selected_replay_label
     st.session_state.replay_idx = default_idx
+elif "replay_idx" not in st.session_state:
+    st.session_state.replay_idx = default_idx
+else:
+    st.session_state.replay_idx = min(max(0, int(st.session_state.replay_idx)), len(df) - 1)
 
 with st.sidebar:
     st.header("Event replay")
@@ -320,14 +679,15 @@ with st.sidebar:
         window_h = None
     st.divider()
     st.write("**Analysis grid**")
-    st.write(f"{report['common_energy_grid_ev'][0]:.0f}-{report['common_energy_grid_ev'][1]:.0f} eV")
-    st.write(f"{report['common_energy_grid_points']} common log-energy points")
-    st.write("SWIS revision:", report["swis_version"])
+    prototype_cfg = yaml.safe_load((ROOT / "config" / "prototype.yaml").read_text(encoding="utf-8"))
+    st.write(f"{prototype_cfg['swis']['common_energy_min_ev']:.0f}-{prototype_cfg['swis']['common_energy_max_ev']:.0f} eV")
+    st.write(f"{prototype_cfg['swis']['common_grid_points']} common log-energy points")
+    st.write("SWIS revision:", prototype_cfg["swis"]["version"])
     st.divider()
     st.write("**Configured event boundaries**")
     for _, row in labels.iterrows():
         st.write(f"{row['boundary_type']}: {row['boundary_time_utc']}")
-    reference_markers = report.get("configured_ground_truth", {}).get("reference_markers", {})
+    reference_markers = aug_report.get("configured_ground_truth", {}).get("reference_markers", {}) if selected_replay_label == "August 2024" else {}
     if reference_markers:
         st.write("**Reference markers**")
         for name, marker in reference_markers.items():
@@ -341,20 +701,70 @@ else:
     lo = pd.Timestamp(custom_range[0])
     hi = pd.Timestamp(custom_range[1])
 
-c1, c2, c3, c4, c5, c6 = st.columns(6)
-c1.metric("SYSTEM STATE", row.state)
-c2.metric("JS OPDI", f"{row.js_opdi:.4f}" if pd.notna(row.js_opdi) else "NA")
-c3.metric("Transition score", f"{row.transition_score:.2f}" if pd.notna(row.transition_score) else "NA")
-c4.metric("Proton speed", f"{row.proton_bulk_speed:.1f} km/s" if pd.notna(row.proton_bulk_speed) else "NA")
-c5.metric("|B| GSE", f"{row.bmag_gse:.1f} nT" if pd.notna(row.bmag_gse) else "NA")
-c6.metric("alpha/p density", f"{row.alpha_proton_ratio:.3f}" if pd.notna(row.alpha_proton_ratio) else "NA")
+phase6_predictions = load_phase6_predictions()
+phase6_ranking = phase6_report.get("model_ranking", [])
+phase6_dashboard_model = phase6_ranking[0] if phase6_ranking else "Logistic Regression"
+phase6_status = phase6_prediction_at(
+    phase6_predictions,
+    selected_replay_meta.get("phase6_interval_id"),
+    row.timestamp,
+    phase6_dashboard_model,
+)
 
-tab_names = ["Event Replay", "Whole Event", "Validation", "CME Source Candidates"]
+if selected_replay_meta["detector_available"]:
+    c1, c2, c3, c4, c5, c6 = st.columns(6)
+    c1.metric("SYSTEM STATE", str(row.state))
+    c2.metric("JS OPDI", fmt_metric(row.js_opdi, ".4f"))
+    c3.metric("Transition score", fmt_metric(row.transition_score, ".2f"))
+    c4.metric("Proton speed", f"{fmt_metric(row.proton_bulk_speed, '.1f')} km/s" if pd.notna(row.proton_bulk_speed) else "NA")
+    c5.metric("|B| GSE", f"{fmt_metric(row.bmag_gse, '.1f')} nT" if pd.notna(row.bmag_gse) else "NA")
+    c6.metric("alpha/p density", fmt_metric(row.alpha_proton_ratio, ".3f"))
+else:
+    status1, status2, status3 = st.columns(3)
+    status1.metric("PROTOTYPE DETECTOR", "Not Available")
+    if phase6_status is not None:
+        status2.metric("PHASE 6 PREDICTION", phase6_status["prediction"])
+        status3.metric("CONFIDENCE", f"{phase6_status['confidence']:.2%}")
+        st.caption(
+            f"Phase 6 dashboard model: {phase6_status['model']} · "
+            f"ensemble event probability: {phase6_status['event_probability']:.1%} · "
+            "confidence is derived from the mean held-out probability across the available Phase 6 baseline models."
+        )
+    else:
+        status2.metric("PHASE 6 PREDICTION", "NOT EVALUATED")
+        status3.metric("CONFIDENCE", "NA")
+        if selected_replay_meta.get("phase6_interval_id") is None:
+            st.caption(
+                "This source was not included in Phase 6 held-out modeling, so no ML prediction or confidence is available."
+            )
+        else:
+            st.caption(
+                "No exact Phase 6 prediction exists for this replay minute. "
+                "Predictions are shown only for timestamps actually included in held-out evaluation."
+            )
+
+    d1, d2, d3, d4 = st.columns(4)
+    d1.metric("JS OPDI", fmt_metric(row.js_opdi, ".4f"))
+    d2.metric("Proton speed", f"{fmt_metric(row.proton_bulk_speed, '.1f')} km/s" if pd.notna(row.proton_bulk_speed) else "NA")
+    d3.metric("|B| GSE", f"{fmt_metric(row.bmag_gse, '.1f')} nT" if pd.notna(row.bmag_gse) else "NA")
+    d4.metric("alpha/p density", fmt_metric(row.alpha_proton_ratio, ".3f"))
+
+tab_names = [
+    "Event Replay",
+    "Whole Event",
+    "Scientific Dataset",
+    "Ground Truth",
+    "Feature Engineering",
+    "OPDI Ablation",
+    "Baseline ML",
+    "Validation",
+    "CME Source Candidates",
+]
 if ENABLE_DATA_MANAGER:
     tab_names.append("Data Manager")
 tabs = st.tabs(tab_names)
-tab1, tab2, tab3, tab4 = tabs[:4]
-tab5 = tabs[4] if ENABLE_DATA_MANAGER else None
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = tabs[:9]
+tab10 = tabs[9] if ENABLE_DATA_MANAGER else None
 
 with tab1:
     st.subheader("Synchronized TH1 / TH2 spectra")
@@ -378,39 +788,402 @@ with tab1:
     with right:
         st.plotly_chart(explain_figure(row), width="stretch")
         st.markdown("**Current evidence**")
-        st.write(f"OPDI level anomaly score: **{row.opdi_anomaly_score:.2f}**")
-        if "transition_component_js_opdi" in row:
-            st.write(f"OPDI transition contribution: **{row.transition_component_js_opdi:.2f}**")
-        st.write(f"Conventional plasma + MAG score: **{row.conventional_anomaly_score:.2f}**")
-        st.write(f"Combined score: **{row.combined_anomaly_score:.2f}**")
-        if bool(row.is_change_point):
-            st.error("Automatic persistent transition detected at this minute.")
-        elif row.state == "ICME CANDIDATE":
-            st.warning("Recent transition + sustained conventional disturbance: ICME CANDIDATE state.")
-        elif row.state == "WATCH":
-            st.info("Unusual cross-plane / environmental behavior: WATCH state.")
+        if pd.notna(row.opdi_anomaly_score):
+            st.write(f"OPDI level anomaly score: **{row.opdi_anomaly_score:.2f}**")
+            if pd.notna(row.transition_component_js_opdi):
+                st.write(f"OPDI transition contribution: **{row.transition_component_js_opdi:.2f}**")
+            st.write(f"Conventional plasma + MAG score: **{row.conventional_anomaly_score:.2f}**")
+            st.write(f"Combined score: **{row.combined_anomaly_score:.2f}**")
+            if bool(row.is_change_point):
+                st.error("Automatic persistent transition detected at this minute.")
+            elif row.state == "ICME CANDIDATE":
+                st.warning("Recent transition + sustained conventional disturbance: ICME CANDIDATE state.")
+            elif row.state == "WATCH":
+                st.info("Unusual cross-plane / environmental behavior: WATCH state.")
+        else:
+            st.info(
+                "Detector evidence is not computed for this independent source. "
+                "The replay is showing the processed scientific measurements without fabricating detector scores."
+            )
 
 with tab2:
-    st.subheader("Full 9-15 August 2024 overview")
+    st.subheader(f"Full {selected_replay_label} processed-source overview")
     bounds = [{"time": str(r.boundary_time_utc), "label": r.boundary_type} for _, r in labels.iterrows()]
     st.plotly_chart(overview_figure(df, spec, bounds), width="stretch")
+    selected_feature_path = selected_replay_meta["feature_file"]
     st.download_button(
-        "Download processed 1-minute feature table",
-        data=(PROC / "aug2024_features_1min.csv").read_bytes(),
-        file_name="aug2024_features_1min.csv",
+        "Download selected processed 1-minute feature table",
+        data=selected_feature_path.read_bytes(),
+        file_name=selected_feature_path.name,
         mime="text/csv",
     )
 
 with tab3:
+    st.subheader("Phase 2 event dataset")
+    st.caption(
+        "The registry separates event windows from independent source intervals. "
+        "The five source intervals are counted independently even when one source contains several scientific windows."
+    )
+    m1, m2, m3, m4, m5 = st.columns(5)
+    m1.metric("Registered windows", phase2_manifest["event_windows"])
+    m2.metric("Independent intervals", phase2_manifest["independent_intervals"])
+    m3.metric("Positive events", phase2_manifest["positive_events"])
+    m4.metric("Control windows", phase2_manifest["control_windows"])
+    m5.metric("One-minute records", f"{phase2_manifest['one_minute_records']:,}")
+
+    if phase2_manifest.get("research_ready"):
+        st.success("The configured Phase 2 dataset satisfies the current research-readiness contract.")
+    else:
+        st.warning(
+            "Five independent source intervals are assembled, but the November orientation control is not research-ready: "
+            "its uploaded SWIS ZIP is corrupt and MAG coverage for 25 November is absent."
+        )
+
+    st.markdown("#### Registered event windows")
+    catalog_columns = [
+        "event_id",
+        "event_class",
+        "sample_role",
+        "negative_control",
+        "start_utc",
+        "end_utc",
+        "records_observed",
+        "time_coverage_fraction",
+        "spectra_available",
+        "cme_candidates",
+        "label_status",
+        "data_status",
+        "phase2_ready",
+    ]
+    st.dataframe(phase2_catalog[catalog_columns], width="stretch", hide_index=True)
+
+    st.markdown("#### Modality completeness by event")
+    coverage_pivot = phase2_coverage.pivot(index="event_id", columns="modality", values="coverage_fraction")
+    heatmap = go.Figure(
+        data=go.Heatmap(
+            z=coverage_pivot.to_numpy() * 100,
+            x=coverage_pivot.columns,
+            y=coverage_pivot.index,
+            zmin=0,
+            zmax=100,
+            colorscale=[[0.0, "#7f1d1d"], [0.9, "#f59e0b"], [1.0, "#16a34a"]],
+            colorbar={"title": "Coverage %"},
+            text=np.round(coverage_pivot.to_numpy() * 100, 1),
+            texttemplate="%{text}%",
+            hovertemplate="%{y}<br>%{x}: %{z:.1f}%<extra></extra>",
+        )
+    )
+    heatmap.update_layout(height=380, margin=dict(l=20, r=20, t=20, b=20))
+    st.plotly_chart(heatmap, width="stretch")
+    st.caption(
+        "OMNI_REFERENCE is optional NASA near-Earth context. It is not included in the Aditya-L1 modality contract "
+        "and never fills missing TH1, TH2, BLK or MAG values."
+    )
+
+    st.markdown("#### Source gaps and blocked inputs")
+    st.dataframe(phase2_queue, width="stretch", hide_index=True)
+    st.caption(
+        "October 12 and partial September dates remain explicit source gaps. The November item can be completed "
+        "after valid SWIS and MAG files covering 25 November are supplied."
+    )
+
+    st.markdown("#### Scientific guardrails")
+    for item in phase2_manifest.get("scientific_guardrails", []):
+        st.write("-", item)
+
+    download_columns = st.columns(4)
+    download_columns[0].download_button(
+        "Event catalog CSV",
+        data=(SCI / "phase2_event_catalog.csv").read_bytes(),
+        file_name="phase2_event_catalog.csv",
+        mime="text/csv",
+    )
+    download_columns[1].download_button(
+        "Feature table CSV",
+        data=(SCI / "phase2_feature_table.csv").read_bytes(),
+        file_name="phase2_feature_table.csv",
+        mime="text/csv",
+    )
+    download_columns[2].download_button(
+        "Coverage CSV",
+        data=(SCI / "phase2_modality_coverage.csv").read_bytes(),
+        file_name="phase2_modality_coverage.csv",
+        mime="text/csv",
+    )
+    download_columns[3].download_button(
+        "Manifest JSON",
+        data=(SCI / "phase2_manifest.json").read_bytes(),
+        file_name="phase2_manifest.json",
+        mime="application/json",
+    )
+    if st.button("Rebuild Phases 2 to 6"):
+        with st.spinner("Rebuilding the event registry, labels, features, ablation, and baseline ML outputs..."):
+            result = run_phases2_to6_build()
+        load_all.clear()
+        if result.returncode == 0:
+            st.success("Phases 2 to 6 rebuilt successfully.")
+            st.rerun()
+        else:
+            st.error("Linked Phase 2-6 build failed.")
+            st.code(process_output(result), language="text")
+
+with tab4:
+    st.subheader("Phase 3 multi-event ground truth")
+    st.caption(
+        "Phase 3 consumes the Phase 2 registry. Exact substructure labels are used only where configured boundaries exist; "
+        "other intervals retain their sourced event-window class."
+    )
+    validation = phase3_report["validation"]
+    g1, g2, g3, g4, g5 = st.columns(5)
+    g1.metric("Labeled records", f"{validation['records']:,}")
+    g2.metric("Event windows", validation["event_windows"])
+    g3.metric("Independent intervals", validation["independent_intervals"])
+    g4.metric("Ready events", f"{validation['phase3_ready_events']}/{validation['event_windows']}")
+    g5.metric("Unknown labels", validation["unknown_labels"])
+
+    if phase3_report.get("research_ready"):
+        st.success("All Phase 3 labels and their Phase 2 source modalities are research-ready.")
+    else:
+        blocked = ", ".join(validation.get("blocked_events", [])) or "unspecified event"
+        st.warning(
+            "Ground-truth construction is valid, but full research readiness remains blocked by Phase 2 source coverage: "
+            f"{blocked}."
+        )
+
+    st.markdown("#### Minute-level label distribution")
+    label_chart = go.Figure(
+        go.Bar(
+            x=phase3_counts["research_label"],
+            y=phase3_counts["n"],
+            text=phase3_counts["n"],
+            marker_color=[
+                "#64748b",
+                "#dc2626",
+                "#f97316",
+                "#7c3aed",
+                "#4f46e5",
+                "#0891b2",
+                "#16a34a",
+                "#ca8a04",
+            ][: len(phase3_counts)],
+        )
+    )
+    label_chart.update_layout(
+        height=390,
+        xaxis_title="Research label",
+        yaxis_title="One-minute records",
+        margin=dict(l=35, r=20, t=20, b=80),
+    )
+    st.plotly_chart(label_chart, width="stretch")
+
+    st.markdown("#### Event label register")
+    event_columns = [
+        "event_id",
+        "event_class",
+        "sample_role",
+        "research_labels",
+        "phase3_policy",
+        "label_confidence",
+        "boundary_status",
+        "records",
+        "eligible_fraction",
+        "phase3_ready",
+    ]
+    st.dataframe(phase3_events[event_columns], width="stretch", hide_index=True)
+
+    st.markdown("#### Boundary register")
+    st.dataframe(
+        phase3_boundaries[
+            [
+                "event_id",
+                "boundary_type",
+                "boundary_time_utc",
+                "scientific_status",
+                "used_for_minute_labeling",
+                "label_source",
+            ]
+        ],
+        width="stretch",
+        hide_index=True,
+    )
+    st.caption(
+        "October reference boundaries are displayed but explicitly excluded from exact minute-level substructure labeling."
+    )
+
+    st.markdown("#### Phase 3 scientific guardrails")
+    for item in phase3_report.get("scientific_guardrails", []):
+        st.write("-", item)
+
+    phase3_downloads = st.columns(5)
+    for column, filename, label, mime in [
+        (phase3_downloads[0], "phase3_ground_truth_dataset.csv", "Ground truth CSV", "text/csv"),
+        (phase3_downloads[1], "phase3_label_counts.csv", "Label counts CSV", "text/csv"),
+        (phase3_downloads[2], "phase3_event_register.csv", "Event register CSV", "text/csv"),
+        (phase3_downloads[3], "phase3_boundary_register.csv", "Boundary register CSV", "text/csv"),
+        (phase3_downloads[4], "phase3_report.json", "Phase 3 report", "application/json"),
+    ]:
+        column.download_button(
+            label,
+            data=(PHASE3 / filename).read_bytes(),
+            file_name=filename,
+            mime=mime,
+        )
+    if st.button("Rebuild Phase 3 ground truth"):
+        with st.spinner("Applying Phase 3 policies to the Phase 2 multi-event registry..."):
+            result = run_phase3_build()
+        load_all.clear()
+        if result.returncode == 0:
+            st.success("Phase 3 ground truth rebuilt successfully.")
+            st.rerun()
+        else:
+            st.error("Phase 3 build failed.")
+            st.code(process_output(result), language="text")
+
+with tab5:
+    st.subheader("Phase 4 complete feature engineering")
+    f1, f2, f3, f4 = st.columns(4)
+    f1.metric("Records", f"{phase4_report['records']:,}")
+    f2.metric("Derived feature columns", phase4_report["derived_feature_columns"])
+    f3.metric("Ablation-ready rows", f"{phase4_report['exploratory_ablation_rows']:,}")
+    f4.metric("Spectral-shape rows", f"{phase4_report['spectral_shape_complete_rows']:,}")
+    if phase4_report.get("blocked_events_from_phase3"):
+        st.warning("Phase 4 is complete, but the existing Phase 2/3 data block remains for: " + ", ".join(phase4_report["blocked_events_from_phase3"]))
+    else:
+        st.success("All registered event rows have the required Phase 4 source modalities.")
+
+    st.markdown("#### Per-event feature availability")
+    st.dataframe(phase4_summary, width="stretch", hide_index=True)
+    st.markdown("#### Feature dictionary")
+    selected_group = st.selectbox("Feature group", ["All"] + sorted(phase4_dictionary["feature_group"].unique().tolist()), key="phase4_feature_group")
+    dictionary_view = phase4_dictionary if selected_group == "All" else phase4_dictionary.loc[phase4_dictionary["feature_group"] == selected_group]
+    st.dataframe(dictionary_view, width="stretch", hide_index=True)
+    st.markdown("#### Phase 4 guardrails")
+    for item in phase4_report.get("scientific_guardrails", []):
+        st.write("-", item)
+    d1, d2, d3, d4 = st.columns(4)
+    d1.download_button("Feature dataset CSV", data=(PHASE4 / "phase4_feature_dataset.csv").read_bytes(), file_name="phase4_feature_dataset.csv", mime="text/csv")
+    d2.download_button("Feature dictionary CSV", data=(PHASE4 / "phase4_feature_dictionary.csv").read_bytes(), file_name="phase4_feature_dictionary.csv", mime="text/csv")
+    d3.download_button("Event summary CSV", data=(PHASE4 / "phase4_event_summary.csv").read_bytes(), file_name="phase4_event_summary.csv", mime="text/csv")
+    d4.download_button("Phase 4 report", data=(PHASE4 / "phase4_report.json").read_bytes(), file_name="phase4_report.json", mime="application/json")
+    if st.button("Rebuild Phase 4 features"):
+        with st.spinner("Computing conventional, OPDI, rolling, compression, and spectral-shape features..."):
+            result = run_phase4_build()
+        load_all.clear()
+        if result.returncode == 0:
+            st.success("Phase 4 feature engineering rebuilt successfully.")
+            st.rerun()
+        st.error("Phase 4 build failed.")
+        st.code(process_output(result), language="text")
+
+with tab6:
+    st.subheader("Phase 5 central scientific question: does OPDI add information?")
+    st.caption("Event-wise exploratory ablation: Conventional vs OPDI only vs Combined. No individual minute is shared between train and held-out source intervals.")
+    evidence = phase5_report.get("evidence_status", "UNKNOWN")
+    if evidence == "EXPLORATORY_SUPPORT_FOR_ADDED_OPDI_INFORMATION":
+        st.success(evidence.replace("_", " ").title())
+    elif evidence == "EXPLORATORY_MIXED_EVIDENCE":
+        st.warning("Exploratory mixed evidence: Combined improves ranking PR-AUC and detection timing, but current thresholded F1/false alarms do not improve over Conventional.")
+    else:
+        st.info(evidence.replace("_", " ").title())
+
+    metric_view = phase5_summary[["mode", "detection_rate", "false_alarms_per_day", "precision", "recall", "f1", "pr_auc", "median_detection_delay_minutes"]].copy()
+    st.dataframe(metric_view, width="stretch", hide_index=True)
+    metric_chart = go.Figure()
+    for metric in ["f1", "pr_auc", "recall", "precision"]:
+        metric_chart.add_trace(go.Bar(name=metric, x=phase5_summary["mode"], y=phase5_summary[metric]))
+    metric_chart.update_layout(barmode="group", height=420, yaxis_title="Score", yaxis_range=[0, 1], margin=dict(l=30, r=20, t=30, b=30))
+    st.plotly_chart(metric_chart, width="stretch")
+
+    st.markdown("#### Event-wise fold metrics")
+    st.dataframe(phase5_folds, width="stretch", hide_index=True)
+    st.markdown("#### Detection-delay register")
+    st.dataframe(phase5_delays, width="stretch", hide_index=True)
+    st.caption("Delay is only calculated where a labeled positive onset occurs inside the event window. Constant positive windows without an exact onset are not assigned a delay.")
+    st.markdown("#### Phase 5 guardrails")
+    for item in phase5_report.get("scientific_guardrails", []):
+        st.write("-", item)
+    p1, p2, p3, p4 = st.columns(4)
+    p1.download_button("Summary metrics CSV", data=(PHASE5 / "phase5_summary_metrics.csv").read_bytes(), file_name="phase5_summary_metrics.csv", mime="text/csv")
+    p2.download_button("Fold metrics CSV", data=(PHASE5 / "phase5_fold_metrics.csv").read_bytes(), file_name="phase5_fold_metrics.csv", mime="text/csv")
+    p3.download_button("Predictions CSV", data=(PHASE5 / "phase5_predictions.csv").read_bytes(), file_name="phase5_predictions.csv", mime="text/csv")
+    p4.download_button("Phase 5 report", data=(PHASE5 / "phase5_report.json").read_bytes(), file_name="phase5_report.json", mime="application/json")
+    if st.button("Re-run Phase 5 ablation"):
+        with st.spinner("Running event-wise Conventional vs OPDI vs Combined ablation..."):
+            result = run_phase5_build()
+        load_all.clear()
+        if result.returncode == 0:
+            st.success("Phase 5 experiment completed.")
+            st.rerun()
+        st.error("Phase 5 experiment failed.")
+        st.code(process_output(result), language="text")
+
+with tab7:
+    st.subheader("Phase 6 baseline machine-learning models")
+    st.caption("Leakage-controlled leave-one-independent-interval-out comparison of Logistic Regression, Random Forest, and HistGradientBoosting using label-free Phase 4 features.")
+    ranking = phase6_report.get("model_ranking", [])
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Eligible rows", f"{phase6_report.get('eligible_rows', 0):,}")
+    m2.metric("Candidate features", phase6_report.get("candidate_feature_count", 0))
+    m3.metric("Held-out folds", phase6_report.get("folds", 0))
+    m4.metric("Top baseline", ranking[0] if ranking else "NA")
+    st.warning("Phase 6 is exploratory: only four independent source intervals are currently research-usable, so model ranking is not yet a confirmatory generalization result.")
+
+    metric_cols = ["model", "precision", "recall", "f1", "pr_auc", "roc_auc", "false_alarms_per_day", "detection_rate", "median_detection_delay_minutes"]
+    st.dataframe(phase6_summary[metric_cols], width="stretch", hide_index=True)
+    ml_chart = go.Figure()
+    for metric in ["f1", "pr_auc", "roc_auc", "recall", "precision"]:
+        ml_chart.add_trace(go.Bar(name=metric, x=phase6_summary["model"], y=phase6_summary[metric]))
+    ml_chart.update_layout(barmode="group", height=430, yaxis_title="Score", yaxis_range=[0, 1], margin=dict(l=30, r=20, t=30, b=30))
+    st.plotly_chart(ml_chart, width="stretch")
+
+    st.markdown("#### Event-wise fold metrics")
+    st.dataframe(phase6_folds, width="stretch", hide_index=True)
+    st.markdown("#### Baseline feature importance")
+    if not phase6_importance.empty:
+        importance_summary = (
+            phase6_importance.groupby(["model", "feature"], as_index=False)["normalized_importance"].mean()
+            .sort_values(["model", "normalized_importance"], ascending=[True, False])
+        )
+        selected_model = st.selectbox("Model for feature ranking", sorted(importance_summary["model"].unique()), key="phase6_importance_model")
+        st.dataframe(importance_summary.loc[importance_summary["model"] == selected_model].head(20), width="stretch", hide_index=True)
+        st.caption("Logistic Regression importance is based on absolute standardized coefficients; Random Forest uses native impurity importance. HistGradientBoosting does not expose native feature importance here.")
+    st.markdown("#### Detection-delay register")
+    st.dataframe(phase6_delays, width="stretch", hide_index=True)
+
+    st.markdown("#### Phase 6 guardrails")
+    for item in phase6_report.get("scientific_guardrails", []):
+        st.write("-", item)
+    q1, q2, q3, q4 = st.columns(4)
+    q1.download_button("Summary metrics CSV", data=(PHASE6 / "phase6_summary_metrics.csv").read_bytes(), file_name="phase6_summary_metrics.csv", mime="text/csv")
+    q2.download_button("Fold metrics CSV", data=(PHASE6 / "phase6_fold_metrics.csv").read_bytes(), file_name="phase6_fold_metrics.csv", mime="text/csv")
+    q3.download_button("Predictions CSV", data=(PHASE6 / "phase6_predictions.csv").read_bytes(), file_name="phase6_predictions.csv", mime="text/csv")
+    q4.download_button("Phase 6 report", data=(PHASE6 / "phase6_report.json").read_bytes(), file_name="phase6_report.json", mime="application/json")
+    if st.button("Re-run Phase 6 baseline ML"):
+        with st.spinner("Training and evaluating the three baseline models event-wise..."):
+            result = run_phase6_build()
+        load_all.clear()
+        if result.returncode == 0:
+            st.success("Phase 6 baseline ML completed.")
+            st.rerun()
+        else:
+            st.error("Phase 6 baseline ML failed.")
+            st.code(process_output(result), language="text")
+
+with tab8:
     st.subheader("What has actually been validated?")
-    nearest = report["evaluation_against_configured_reference"]["nearest_change_to_reference_shock"]
-    offset = report["evaluation_against_configured_reference"]["nearest_change_offset_minutes"]
+    st.caption(
+        "This validation panel is the August 2024 detector-prototype validation. "
+        "Changing the replay source does not relabel another month as detector-validated."
+    )
+    shock_ref = pd.Timestamp(aug_report["configured_ground_truth"]["shock_reference"])
+    nearest = aug_report["evaluation_against_configured_reference"]["nearest_change_to_reference_shock"]
+    offset = aug_report["evaluation_against_configured_reference"]["nearest_change_offset_minutes"]
     a, b, c = st.columns(3)
     a.metric("Legacy approx. benchmark", str(shock_ref))
     b.metric("Nearest automatic transition", str(nearest))
     c.metric("Offset", f"{offset:+.0f} min" if offset is not None else "NA")
     st.caption("This offset is relative to the legacy approximate internal benchmark. It must not be reported as validated early-warning lead time.")
-    markers = report.get("configured_ground_truth", {}).get("reference_markers", {})
+    markers = aug_report.get("configured_ground_truth", {}).get("reference_markers", {})
     if markers:
         st.markdown("#### Reference markers")
         marker_rows = [{"reference": name.replace("_", " "), "time_utc": value} for name, value in markers.items()]
@@ -432,36 +1205,42 @@ with tab3:
     st.dataframe(show, width="stretch", hide_index=True)
     st.caption("These are within-event exploratory statistics, not proof of generalization to unseen ICMEs.")
     st.markdown("#### Detector state counts")
-    st.dataframe(pd.DataFrame({"state": list(report["state_counts"]), "minutes": list(report["state_counts"].values())}), width="stretch", hide_index=True)
+    st.dataframe(pd.DataFrame({"state": list(aug_report["state_counts"]), "minutes": list(aug_report["state_counts"].values())}), width="stretch", hide_index=True)
     st.markdown("#### Scientific guardrails")
-    for item in report.get("scientific_status", []):
+    for item in aug_report.get("scientific_status", []):
         st.write("-", item)
 
-with tab4:
+with tab9:
     st.subheader("Prototype CME compatibility ranking")
-    st.caption(
-        f"Ranking reference time: {report.get('cme_source_match_reference_time', 'NA')} "
-        f"({report.get('cme_source_match_reference', 'unknown')})."
-    )
-    cols = [
-        "cme_time",
-        "linear_speed_km_s",
-        "space_speed_km_s",
-        "source_location",
-        "flare",
-        "observed_transit_hours",
-        "ballistic_transit_hours",
-        "compatibility_score",
-        "catalog",
-    ]
-    st.dataframe(candidates[cols], width="stretch", hide_index=True)
-    st.caption(
-        "Compatibility combines simple transit-time, direction, halo status and speed terms. "
-        "It is a heuristic ranking for source-association exploration, not a causal probability."
-    )
+    if selected_replay_label != "August 2024":
+        st.info(
+            f"A CME compatibility ranking has not been built for {selected_replay_label}. "
+            "The existing heuristic source-matching table is tied to the August 2024 prototype transition, so it is not reused for another month."
+        )
+    else:
+        st.caption(
+            f"Ranking reference time: {aug_report.get('cme_source_match_reference_time', 'NA')} "
+            f"({aug_report.get('cme_source_match_reference', 'unknown')})."
+        )
+        cols = [
+            "cme_time",
+            "linear_speed_km_s",
+            "space_speed_km_s",
+            "source_location",
+            "flare",
+            "observed_transit_hours",
+            "ballistic_transit_hours",
+            "compatibility_score",
+            "catalog",
+        ]
+        st.dataframe(aug_candidates[cols], width="stretch", hide_index=True)
+        st.caption(
+            "Compatibility combines simple transit-time, direction, halo status and speed terms. "
+            "It is a heuristic ranking for source-association exploration, not a causal probability."
+        )
 
-if ENABLE_DATA_MANAGER and tab5 is not None:
-    with tab5:
+if ENABLE_DATA_MANAGER and tab10 is not None:
+    with tab10:
         st.subheader("Data manager")
         st.write(
             "Use this tab when your team adds more Aditya-L1 files locally. Official mission data should be downloaded "
@@ -620,7 +1399,10 @@ if ENABLE_DATA_MANAGER and tab5 is not None:
                 st.code(process_output(result), language="text")
 
 st.divider()
-st.caption("TopoCross-SWIS v1.0 - thresholds and ground truth remain configurable.")
+st.caption(
+    "TopoCross-SWIS v4.1 - Phases 2-6 implemented: multi-event registry/replay, ground truth, "
+    "feature engineering, OPDI ablation, and baseline machine learning."
+)
 
 if auto_replay:
     time.sleep(max(0.2, 1.0 / replay_speed))

@@ -102,7 +102,7 @@ Correct run sequence:
 ```bash
 cd "Halo Aditya L2"
 source .venv/bin/activate
-pip install -r requirement.txt
+pip install -r requirements.txt
 streamlit run app.py
 ```
 
@@ -123,10 +123,10 @@ or:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
-`requirement.txt` is the single dependency file used by this package.
+`requirements.txt` is the single dependency file used by this package.
 
 ## Dashboard Features For Demo
 
@@ -158,7 +158,7 @@ For public OPDI-only experimentation:
 
 ## Build Order
 
-1. Activate `.venv` and install dependencies from `requirement.txt`.
+1. Activate `.venv` and install dependencies from `requirements.txt`.
 2. Run `python3 scripts/rebuild_processed.py`.
 3. Confirm `data/processed/aug2024_features_1min.csv` has 10,080 rows for the current Aug 9-15 final scientific range.
 4. Run `python3 -m pytest tests`.

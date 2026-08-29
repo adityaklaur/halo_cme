@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "phase": 5,
+  "experiment_name": "Phase 5 OPDI central hypothesis ablation",
+  "status": "COMPLETE_EXPLORATORY_EVENTWISE_ABLATION",
+  "evidence_status": "EXPLORATORY_MIXED_EVIDENCE",
+  "target": "icme_binary",
+  "eligible_rows": 16602,
+  "independent_ready_intervals": [
+    "AUG2024_DEMO_INTERVAL",
+    "MAR2025_CIR_HSS_INTERVAL",
+    "OCT2024_ICME_INTERVAL",
+    "SEP2024_QUIET_INTERVAL"
+  ],
+  "folds": 4,
+  "modes": {
+    "Conventional": [
+      "proton_bulk_speed",
+      "proton_density",
+      "proton_thermal",
+      "alpha_proton_ratio",
+      "bmag_gse",
+      "Bx_gse",
+      "By_gse",
+      "Bz_gse"
+    ],
+    "OPDI only": [
+      "js_opdi",
+      "hellinger_opdi",
+      "wasserstein_opdi",
+      "d_opdi_dt"
+    ],
+    "Combined": [
+      "proton_bulk_speed",
+      "proton_density",
+      "proton_thermal",
+      "alpha_proton_ratio",
+      "bmag_gse",
+      "Bx_gse",
+      "By_gse",
+      "Bz_gse",
+      "js_opdi",
+      "hellinger_opdi",
+      "wasserstein_opdi",
+      "d_opdi_dt"
+    ]
+  },
+  "calibration": {
+    "method": "robust distance from training negative/control distribution",
+    "negative_score_quantile": 0.99,
+    "persistence_minutes": 3,
+    "minimum_feature_fraction": 0.7,
+    "combined_score": "equal-weight mean of conventional-group and OPDI-group robust anomaly scores"
+  },
+  "summary_metrics": [
+    {
+      "mode": "Conventional",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "precision": 0.772461345591308,
+      "recall": 0.49670831653902997,
+      "f1": 0.6046283424646333,
+      "pr_auc": 0.6518420880907734,
+      "false_alarm_episodes": 78,
+      "false_alarms_per_day": 12.263347527022601,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 145.0,
+      "missed_events": 0
+    },
+    {
+      "mode": "OPDI only",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "precision": 0.7420494699646644,
+      "recall": 0.16928657799274485,
+      "f1": 0.27568099770265836,
+      "pr_auc": 0.6017988083305914,
+      "false_alarm_episodes": 51,
+      "false_alarms_per_day": 8.018342613822469,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 86.0,
+      "missed_events": 0
+    },
+    {
+      "mode": "Combined",
+      "fold": "ALL_EVENTWISE_FOLDS",
+      "records": 16602,
+      "positive_minutes": 7443,
+      "negative_minutes": 9159,
+      "precision": 0.7464589235127479,
+      "recall": 0.35402391508800213,
+      "f1": 0.48026975303016495,
+      "pr_auc": 0.70580224132447,
+      "false_alarm_episodes": 126,
+      "false_alarms_per_day": 19.81002292826728,
+      "positive_events": 2,
+      "detected_events": 2,
+      "detection_rate": 1.0,
+      "median_detection_delay_minutes": 77.0,
+      "missed_events": 0
+    }
+  ],
+  "improvements_vs_conventional": {
+    "opdi_minus_conventional_f1": -0.3289473447619749,
+    "combined_minus_conventional_f1": -0.12435858943446831,
+    "opdi_minus_conventional_pr_auc": -0.05004327976018197,
+    "combined_minus_conventional_pr_auc": 0.05396015323369663,
+    "combined_minus_conventional_detection_rate": 0.0,
+    "combined_minus_conventional_false_alarms_per_day": 7.546675401244679
+  },
+  "leakage_checks": [
+    {
+      "held_out_interval": "AUG2024_DEMO_INTERVAL",
+      "train_intervals": [
+        "MAR2025_CIR_HSS_INTERVAL",
+        "OCT2024_ICME_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "AUG2024_DEMO_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "MAR2025_CIR_HSS_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "OCT2024_ICME_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "MAR2025_CIR_HSS_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "OCT2024_ICME_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "MAR2025_CIR_HSS_INTERVAL",
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "test_intervals": [
+        "OCT2024_ICME_INTERVAL"
+      ],
+      "interval_leakage": false
+    },
+    {
+      "held_out_interval": "SEP2024_QUIET_INTERVAL",
+      "train_intervals": [
+        "AUG2024_DEMO_INTERVAL",
+        "MAR2025_CIR_HSS_INTERVAL",
+        "OCT2024_ICME_INTERVAL"
+      ],
+      "test_intervals": [
+        "SEP2024_QUIET_INTERVAL"
+      ],
+      "interval_leakage": false
+    }
+  ],
+  "scientific_guardrails": [
+    "Independent source intervals, not individual minutes, are held out for evaluation.",
+    "Thresholds and robust scaling are calibrated only on training-fold negative/control rows.",
+    "This is a transparent statistical ablation, not the Phase 6 machine-learning model.",
+    "November orientation-control rows are excluded because Phase 2/3 mark their Aditya-L1 modalities as incomplete.",
+    "Results are exploratory because the current Phase 2/3 dataset is not fully research-ready and some event boundaries are provisional or approximate.",
+    "Detection delay is calculated only when a positive boundary occurs inside the registered event window; constant positive windows without an exact onset are excluded from delay statistics.",
+    "Detection timing is not called early warning."
+  ],
+  "outputs": {
+    "predictions": "outputs/phase5/phase5_predictions.csv",
+    "fold_metrics": "outputs/phase5/phase5_fold_metrics.csv",
+    "summary_metrics": "outputs/phase5/phase5_summary_metrics.csv",
+    "detection_delays": "outputs/phase5/phase5_detection_delays.csv",
+    "report": "outputs/phase5/phase5_report.json"
+  }
+}

@@ -1,12 +1,21 @@
 {
   "package": "Aditya-L2-TopoCross-SWIS",
-  "status": "merged working prototype using FINAL scientific detector profile",
+  "status": "Linked Phases 2-6 multi-event dataset, ground truth, feature engineering, OPDI ablation, and baseline machine learning",
   "includes_source_code": true,
   "includes_config": true,
   "includes_tests_folder": true,
   "includes_processed_august_outputs": true,
-  "includes_raw_spacecraft_data": false,
-  "raw_data_note": "Processed demonstration outputs are included. Raw TH1/TH2/BLK/MAG files must be supplied under data/raw before running a full rebuild.",
+  "includes_phase2_event_registry": true,
+  "includes_phase2_dataset_builder": true,
+  "includes_phase2_readiness_dashboard": true,
+  "includes_processed_multievent_outputs": true,
+  "includes_nasa_omni_reference_csvs": true,
+  "includes_phase3_ground_truth_builder": true,
+  "includes_phase3_minute_labels": true,
+  "includes_phase3_event_and_boundary_registers": true,
+  "includes_phase3_dashboard": true,
+  "includes_raw_spacecraft_data": true,
+  "raw_data_note": "A one-day August raw sample and all processed Phase 2-6 outputs are included. Original multi-event source archives are not duplicated; a full raw rebuild requires restoring matching TH1/TH2/BLK/MAG files.",
   "scientific_anchor": {
     "records": 10080,
     "interval": "2024-08-09 through 2024-08-15 UTC",
@@ -27,5 +36,85 @@
     "Zenodo SWIS-only download and build scripts",
     "Configurable processing date range"
   ],
-  "scientific_guardrail": "Do not describe the transition offset as validated early warning. This is a single-event exploratory prototype."
+  "phase2_status": {
+    "registered_windows": 7,
+    "independent_source_intervals": 5,
+    "research_ready": false,
+    "ready_windows": 6,
+    "blocked_window": "NOV2024_ORIENTATION_CONTROL_01",
+    "next_requirement": "Supply a valid November SWIS archive plus MAG data covering 2024-11-25."
+  },
+  "phase3_status": {
+    "labeled_records": 17201,
+    "research_labels": 8,
+    "phase3_valid": true,
+    "ready_events": 6,
+    "total_events": 7,
+    "research_ready": false,
+    "blocked_window": "NOV2024_ORIENTATION_CONTROL_01"
+  },
+  "scientific_guardrail": "Phases 4-6 are implemented, but Phase 5/6 conclusions remain exploratory because the November control lacks required Aditya-L1 modalities and only four independent intervals are currently modeling-ready. Do not claim generalized OPDI or ML superiority.",
+  "includes_phase4_feature_builder": true,
+  "includes_phase4_complete_feature_table": true,
+  "includes_phase4_feature_dictionary": true,
+  "includes_phase5_eventwise_ablation": true,
+  "includes_phase5_predictions_and_metrics": true,
+  "includes_phase4_phase5_dashboard": false,
+  "phase4_status": {
+    "records": 17201,
+    "derived_feature_columns": 78,
+    "exploratory_ablation_rows": 16602,
+    "spectral_shape_complete_rows": 16739,
+    "blocked_window": "NOV2024_ORIENTATION_CONTROL_01",
+    "feature_engineering_complete": true
+  },
+  "phase5_status": {
+    "status": "COMPLETE_EXPLORATORY_EVENTWISE_ABLATION",
+    "evidence_status": "EXPLORATORY_MIXED_EVIDENCE",
+    "independent_ready_intervals": 4,
+    "folds": 4,
+    "modes": [
+      "Conventional",
+      "OPDI only",
+      "Combined"
+    ],
+    "conventional_f1": 0.6046283424646333,
+    "opdi_only_f1": 0.2756809977026583,
+    "combined_f1": 0.4802697530301649,
+    "conventional_pr_auc": 0.6518420880907734,
+    "opdi_only_pr_auc": 0.6017988083305914,
+    "combined_pr_auc": 0.70580224132447,
+    "valid_detection_delay_minutes": {
+      "Conventional": 145.0,
+      "OPDI only": 86.0,
+      "Combined": 77.0
+    },
+    "research_ready": false
+  },
+  "includes_phase6_baseline_ml": true,
+  "includes_phase6_predictions_and_metrics": true,
+  "includes_phase6_model_artifacts": true,
+  "includes_phase4_phase5_phase6_dashboard": true,
+  "phase6_status": {
+    "status": "COMPLETE_EXPLORATORY_BASELINE_ML",
+    "evidence_status": "EXPLORATORY_NOT_RESEARCH_READY",
+    "eligible_rows": 16602,
+    "candidate_feature_count": 79,
+    "selected_feature_count": 79,
+    "independent_ready_intervals": 4,
+    "folds": 4,
+    "model_ranking": [
+      "Logistic Regression",
+      "Gradient Boosting",
+      "Random Forest"
+    ],
+    "logistic_regression_f1": 0.5210074347299868,
+    "logistic_regression_pr_auc": 0.5169605016148797,
+    "random_forest_f1": 0.28741191101285063,
+    "random_forest_pr_auc": 0.32874661042098635,
+    "gradient_boosting_f1": 0.23621309170442117,
+    "gradient_boosting_pr_auc": 0.37090869567625506,
+    "research_ready": false
+  },
+  "includes_phase6_qa_report": true
 }

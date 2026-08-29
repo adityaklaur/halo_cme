@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "phase": 4,
+  "dataset_name": "TopoCross-SWIS Phase 4 complete feature dataset",
+  "status": "FEATURE_ENGINEERING_COMPLETE_WITH_EXISTING_PHASE2_DATA_GAP",
+  "records": 17201,
+  "events": 7,
+  "independent_intervals": 5,
+  "derived_feature_columns": 78,
+  "exploratory_ablation_rows": 16602,
+  "spectral_shape_complete_rows": 16739,
+  "blocked_events_from_phase3": [
+    "NOV2024_ORIENTATION_CONTROL_01"
+  ],
+  "primary_opdi": "js_opdi",
+  "rolling_windows_minutes": [
+    5,
+    15,
+    60
+  ],
+  "opdi_anomaly": {
+    "past_only_baseline_minutes": 60,
+    "minimum_periods": 15,
+    "threshold": 3.0
+  },
+  "scientific_guardrails": [
+    "All rolling baselines are past-only within an event window; the current row is not included in its own baseline.",
+    "Ground-truth labels are carried through for evaluation but are not used to calculate Phase 4 features.",
+    "The November orientation-control rows remain in the table but are excluded from modeling because required Aditya-L1 modalities are absent.",
+    "Spectral-shape features are computed from normalized TH1/TH2 distributions in the registered source spectra files."
+  ],
+  "outputs": {
+    "dataset": "outputs/phase4/phase4_feature_dataset.csv",
+    "dictionary": "outputs/phase4/phase4_feature_dictionary.csv",
+    "event_summary": "outputs/phase4/phase4_event_summary.csv",
+    "report": "outputs/phase4/phase4_report.json"
+  }
+}

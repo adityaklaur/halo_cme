@@ -1,0 +1,135 @@
+schema_version: 2
+dataset_name: "TopoCross-SWIS Phase 2 multi-event scientific dataset"
+expected_cadence_minutes: 1
+minimum_modality_coverage: 0.90
+minimum_independent_intervals_for_research: 5
+
+# Labels are literature-backed interval annotations, not detector outputs.
+# NASA OMNI columns are an external near-Earth reference and are never used as
+# a replacement for missing Aditya-L1 TH1/TH2/BLK/MAG measurements.
+events:
+  - event_id: "AUG2024_QUIET_CONTROL_01"
+    title: "Pre-event quiet solar-wind control"
+    independent_interval_id: "AUG2024_DEMO_INTERVAL"
+    event_class: "QUIET"
+    sample_role: "CONTROL"
+    negative_control: true
+    start_utc: "2024-08-09T12:00:00"
+    end_utc: "2024-08-10T08:30:00"
+    feature_file: "data/processed/aug2024_features_1min.csv"
+    spectra_file: "data/processed/aug2024_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "PROVISIONAL"
+    data_status: "COMPLETE"
+    label_source: "https://arxiv.org/html/2507.17523v1"
+    notes: "Pre-event baseline after the supplied 9 August BLK coverage gap."
+
+  - event_id: "AUG2024_COMPLEX_ICME_01"
+    title: "August 2024 interacting ICME"
+    independent_interval_id: "AUG2024_DEMO_INTERVAL"
+    event_class: "COMPLEX_ICME"
+    sample_role: "POSITIVE"
+    negative_control: false
+    start_utc: "2024-08-10T08:31:00"
+    end_utc: "2024-08-13T23:59:00"
+    feature_file: "data/processed/aug2024_features_1min.csv"
+    spectra_file: "data/processed/aug2024_spectra_1min.npz"
+    cme_candidates_file: "data/cme_candidates/candidates.csv"
+    label_status: "PROVISIONAL"
+    data_status: "COMPLETE"
+    label_source: "https://arxiv.org/html/2507.17523v1"
+    notes: "Published shock marker 10 August 09:33 UTC; configured substructure boundaries remain provisional."
+
+  - event_id: "AUG2024_POST_EVENT_CONTROL_01"
+    title: "Post-ICME recovery control"
+    independent_interval_id: "AUG2024_DEMO_INTERVAL"
+    event_class: "POST_ICME"
+    sample_role: "CONTROL"
+    negative_control: false
+    start_utc: "2024-08-14T00:00:00"
+    end_utc: "2024-08-15T23:59:00"
+    feature_file: "data/processed/aug2024_features_1min.csv"
+    spectra_file: "data/processed/aug2024_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "PROVISIONAL"
+    data_status: "COMPLETE"
+    label_source: "https://arxiv.org/html/2507.17523v1"
+    notes: "Recovery plasma is retained as a separate non-clean control."
+
+  - event_id: "OCT2024_COMPLEX_ICME_01"
+    title: "10 October 2024 shock, sheath and magnetic cloud"
+    independent_interval_id: "OCT2024_ICME_INTERVAL"
+    event_class: "COMPLEX_ICME"
+    sample_role: "POSITIVE"
+    negative_control: false
+    start_utc: "2024-10-10T06:00:00"
+    end_utc: "2024-10-11T23:59:00"
+    feature_file: "data/processed/events/oct2024_features_1min.csv"
+    spectra_file: "data/processed/events/oct2024_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "LITERATURE_BACKED_APPROXIMATE"
+    data_status: "CORE_WINDOW_COMPLETE; 2024-10-12 SWIS UNAVAILABLE"
+    label_source: "https://arxiv.org/html/2602.13644v2"
+    notes: "Paper reports upstream solar wind through 06:00, shock after 14:00, and a sheath-MC boundary near 11 October 00:00. The registry excludes 12 October because PRADAN did not publish SWIS files."
+
+  - event_id: "SEP2024_QUIET_CONTROL_01"
+    title: "Published September 2024 quiet interval"
+    independent_interval_id: "SEP2024_QUIET_INTERVAL"
+    event_class: "QUIET"
+    sample_role: "CONTROL"
+    negative_control: true
+    start_utc: "2024-09-23T15:00:00"
+    end_utc: "2024-09-23T23:59:00"
+    feature_file: "data/processed/events/sep2024_features_1min.csv"
+    spectra_file: "data/processed/events/sep2024_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "LITERATURE_BACKED"
+    data_status: "COMPLETE CORE SUBWINDOW; 24 SEPTEMBER SOURCE FILES PARTIAL"
+    label_source: "https://arxiv.org/html/2507.11952v2"
+    notes: "The publication gives 23 September 15:00 to 25 September 00:00. This complete nine-hour subwindow is registered because the supplied 24 September SWIS and MAG products are partial."
+
+  - event_id: "NOV2024_ORIENTATION_CONTROL_01"
+    title: "Quiet interval during Aditya-L1 rotation"
+    independent_interval_id: "NOV2024_ORIENTATION_INTERVAL"
+    event_class: "ORIENTATION_CONTROL"
+    sample_role: "CONTROL"
+    negative_control: false
+    start_utc: "2024-11-25T06:30:00"
+    end_utc: "2024-11-25T14:10:00"
+    feature_file: "data/processed/events/nov2024_features_1min.csv"
+    spectra_file: "data/processed/events/nov2024_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "LITERATURE_BACKED"
+    data_status: "BLOCKED: uploaded SWIS ZIP corrupt and MAG 25 November absent"
+    label_source: "https://arxiv.org/html/2507.11952v2"
+    notes: "Exact published spacecraft-rotation interval. OMNI is present, but it is not a substitute for missing Aditya-L1 measurements."
+
+  - event_id: "MAR2025_CIR_HSS_01"
+    title: "8-10 March 2025 CIR and high-speed stream"
+    independent_interval_id: "MAR2025_CIR_HSS_INTERVAL"
+    event_class: "CIR_SIR"
+    sample_role: "CONTROL"
+    negative_control: false
+    start_utc: "2025-03-08T00:00:00"
+    end_utc: "2025-03-10T23:59:00"
+    feature_file: "data/processed/events/mar2025_features_1min.csv"
+    spectra_file: "data/processed/events/mar2025_spectra_1min.npz"
+    cme_candidates_file: null
+    label_status: "LITERATURE_BACKED_APPROXIMATE"
+    data_status: "COMPLETE"
+    label_source: "https://www.sidc.be/article/coronal-hole"
+    notes: "SIDC reports CIR arrival early 8 March, speed near 700 km/s on 9 March and above 500 km/s until late 10 March."
+
+acquisition_queue:
+  - target_id: "OCT2024_SWIS_20241012"
+    required_class: "COMPLEX_ICME_CONTINUATION"
+    status: "CONFIRMED_NOT_AVAILABLE_ON_PRADAN; PRESERVED_AS_GAP"
+  - target_id: "SEP2024_ADITYA_20240924"
+    required_class: "QUIET_INTERVAL_CONTINUATION"
+    status: "PARTIAL PRODUCTS; REGISTRY USES COMPLETE 20240923 SUBWINDOW"
+  - target_id: "NOV2024_SWIS_20241124_26"
+    required_class: "ORIENTATION_CONTROL"
+    status: "REUPLOAD_REQUIRED; NESTED SWIS ZIP IS CORRUPT"
+  - target_id: "NOV2024_MAG_20241125_26"
+    required_class: "ORIENTATION_CONTROL"
+    status: "REUPLOAD_REQUIRED; CURRENT MAG ZIP CONTAINS ONLY 20241124"

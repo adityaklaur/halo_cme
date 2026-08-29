@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "dataset_name": "TopoCross-SWIS Phase 3 multi-event ground-truth dataset",
+  "phase": 3,
+  "status": "COMPLETED_WITH_BLOCKED_PHASE2_SOURCE",
+  "scope": "Phase 2 multi-event scientific dataset",
+  "phase3_valid": true,
+  "research_ready": false,
+  "labels": [
+    "QUIET",
+    "SHOCK",
+    "SHEATH",
+    "ICME/EJECTA",
+    "COMPLEX_ICME",
+    "POST-ICME",
+    "CIR/HSS",
+    "ORIENTATION-CONTROL"
+  ],
+  "validation": {
+    "records": 17201,
+    "expected_phase2_records": 17201,
+    "record_count_matches_phase2": true,
+    "event_windows": 7,
+    "independent_intervals": 5,
+    "duplicate_event_timestamps": 0,
+    "timestamps_monotonic_within_events": true,
+    "unknown_labels": 0,
+    "event_counts_match": true,
+    "icme_binary_consistent": true,
+    "shock_binary_consistent": true,
+    "phase3_ready_events": 6,
+    "blocked_events": [
+      "NOV2024_ORIENTATION_CONTROL_01"
+    ],
+    "actual_label_counts": {
+      "CIR/HSS": 4320,
+      "ICME/EJECTA": 3600,
+      "POST-ICME": 2880,
+      "COMPLEX_ICME": 2520,
+      "QUIET": 2030,
+      "SHEATH": 1389,
+      "ORIENTATION-CONTROL": 461,
+      "SHOCK": 1
+    },
+    "phase3_valid": true
+  },
+  "scientific_guardrails": [
+    "Phase 3 consumes the Phase 2 event registry and never creates synthetic spacecraft measurements.",
+    "Exact shock/sheath/ejecta substructure is assigned only to the configured August event.",
+    "October retains a window-level COMPLEX_ICME label because its publication does not provide an exact Aditya-L1 shock minute.",
+    "The November orientation label is retained, but its minutes are excluded from modeling while Phase 2 modalities are incomplete.",
+    "NASA OMNI remains optional context and does not satisfy Aditya-L1 modality readiness."
+  ],
+  "outputs": {
+    "ground_truth_dataset": "outputs/phase3/phase3_ground_truth_dataset.csv",
+    "label_counts": "outputs/phase3/phase3_label_counts.csv",
+    "event_register": "outputs/phase3/phase3_event_register.csv",
+    "boundary_register": "outputs/phase3/phase3_boundary_register.csv",
+    "report": "outputs/phase3/phase3_report.json"
+  }
+}

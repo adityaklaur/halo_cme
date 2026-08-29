@@ -1,6 +1,6 @@
-# TopoCross-SWIS Prototype
+# TopoCross-SWIS Phases 2–6 Research Prototype
 
-College prototype for detecting and explaining an August 2024 solar-wind disturbance using real Aditya-L1 ASPEX/SWIS TH1, TH2, BLK, and MAG data.
+Research prototype for detecting, organizing, and labeling solar-wind disturbances across five independent source intervals using real Aditya-L1 ASPEX/SWIS TH1, TH2, BLK, MAG data and traceable NASA OMNI context.
 
 ## Quick Start
 
@@ -10,10 +10,8 @@ Run these commands from Terminal:
 cd "Halo Aditya L2"
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirement.txt
-python3 scripts/rebuild_processed.py
-python3 scripts/build_static_dashboard.py
-python3 scripts/final_qa.py
+pip install -r requirements.txt
+python3 scripts/build_phases2_to6.py
 streamlit run app.py
 ```
 
@@ -30,8 +28,82 @@ If `streamlit: command not found` appears, the wrong Python environment is activ
 - Produces a Streamlit dashboard with replay, whole-event plots, validation, CME candidate ranking, refresh/rebuild controls, and custom time-range selection.
 - Keeps raw transition buildup in WATCH and enters ALERT only after a persistent change point is confirmed.
 - Ranks CME candidates against the detected transition time when available, not only the legacy configured benchmark.
+- Registers positive and control windows in a traceable Phase 2 event catalog.
+- Checks per-event TH1, TH2, BLK and MAG completeness.
+- Preserves independent-interval identity so event-wise validation cannot mistake windows from one interval for separate events.
+- Exposes Phase 2 readiness, acquisition gaps and downloadable scientific tables in the dashboard.
+- Includes independent August/October ICME, September quiet, November orientation-control, and March CIR/HSS source intervals.
+- Keeps NASA OMNI one-minute values in separately named reference columns; they never replace missing Aditya-L1 measurements.
+- Applies a registry-driven Phase 3 ground-truth policy to every Phase 2 event window.
+- Produces minute-level research labels, binary targets, event/boundary registers, confidence fields, and modeling-eligibility flags.
+- Prevents approximate October reference times from being presented as exact shock labels.
+- Builds the complete Phase 4 feature matrix: conventional derivatives/rolling statistics/compression indicators, OPDI derivatives/rolling anomaly/persistence, and TH1/TH2 spectral-shape relationships.
+- Runs the Phase 5 event-wise Conventional vs OPDI-only vs Combined ablation without random minute-level leakage.
+- Reports detection rate, false alarms, precision, recall, F1, PR-AUC, and valid detection delay with explicit onset-quality guardrails.
+- Trains and compares Phase 6 Logistic Regression, Random Forest, and Histogram Gradient Boosting baselines using leave-one-independent-interval-out evaluation.
+- Saves held-out predictions, model metrics, baseline feature importance/selection diagnostics, and full-data exploratory `.joblib` artifacts.
 
-There is no neural-network model in this version. "Training" means baseline calibration from the quiet pre-event interval.
+There is no deep-learning model in this version. Phase 6 is the deliberately simple supervised baseline stage before the more novel cross-plane model in Phase 7.
+
+## Phase 2 Scientific Dataset
+
+Build or refresh the Phase 2 outputs with:
+
+```bash
+python3 scripts/build_phase2_dataset.py
+```
+
+The event registry is `config/phase2_events.yaml`. Generated tables and the machine-readable readiness manifest are written to `data/scientific/`.
+
+The packaged build contains seven registered windows from five independent source intervals. Six windows pass the synchronized Aditya-L1 modality contract. The November 25 orientation control is deliberately non-ready because the uploaded SWIS ZIP is corrupt and MAG for that date is absent. See `docs/PHASE2_SCIENTIFIC_DATASET.md`.
+
+To regenerate the multi-event processed sources after restoring raw files under a per-event `swis/` and `mag/` layout, run:
+
+```bash
+python3 scripts/build_multievent_sources.py --raw-root /path/to/per-event-raw
+```
+
+## Phase 3 Ground Truth
+
+Build Phase 3 alone with:
+
+```bash
+python3 scripts/phase3_ground_truth.py
+```
+
+The labeling policies are stored in `config/phase3_labels.yaml`. Outputs are written to `outputs/phase3/`, including the complete 17,201-row ground-truth table, label counts, event register, boundary register, and validation report.
+
+Phase 3 labels seven windows from five independent intervals. Six events are ready for exploratory modeling. The November orientation-control label is retained but its rows are excluded from modeling until valid Aditya-L1 SWIS and MAG measurements cover 25 November. See `docs/PHASE_3_GROUND_TRUTH.md`.
+
+## Phase 4 Feature Engineering
+
+Build the complete feature matrix with:
+
+```bash
+python3 scripts/build_phase4_features.py
+```
+
+Outputs are written to `outputs/phase4/`. See `docs/PHASE_4_FEATURE_ENGINEERING.md`.
+
+## Phase 5 OPDI Ablation
+
+Run the central scientific comparison with:
+
+```bash
+python3 scripts/run_phase5_experiment.py
+```
+
+The experiment compares Conventional, OPDI-only, and Combined modes using leave-one-independent-interval-out evaluation. Current evidence is exploratory and mixed: Combined improves PR-AUC and valid detection timing, but not thresholded F1/false alarms. Outputs are in `outputs/phase5/`. See `docs/PHASE_5_OPDI_ABLATION.md`.
+
+## Phase 6 Baseline Machine Learning
+
+Run the three baseline models with:
+
+```bash
+python3 scripts/run_phase6_ml.py
+```
+
+Phase 6 trains Logistic Regression, Random Forest, and Histogram Gradient Boosting on label-free Phase 4 features. Evaluation is leave-one-independent-interval-out; preprocessing and feature filtering are fitted only on each training fold. Current results remain exploratory because only four independent intervals are research-usable. Outputs are in `outputs/phase6/`, including saved `.joblib` artifacts. See `docs/PHASE_6_BASELINE_ML.md`.
 
 ## Setup
 
@@ -41,12 +113,14 @@ Use the project-local `.venv` environment from the extracted project folder:
 cd "Halo Aditya L2"
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
-`requirement.txt` is the dependency file used by this package.
+`requirements.txt` is the dependency file used by this package.
 
 ## Build Processed Data
+
+The packaged processed August outputs are ready to use. Run a full rebuild only after supplying matching raw TH1, TH2, BLK and MAG files for every configured date.
 
 ```bash
 python3 scripts/rebuild_processed.py
@@ -125,6 +199,12 @@ Run the final submission QA:
 python3 scripts/final_qa.py
 ```
 
+Run the focused Phase 4–6 / saved-model QA:
+
+```bash
+python3 scripts/phase6_qa.py
+```
+
 This writes:
 
 ```text
@@ -133,8 +213,14 @@ outputs/final_qa_report.json
 
 See also:
 
+- `docs/PHASE_4_FEATURE_ENGINEERING.md`
+- `docs/PHASE_5_OPDI_ABLATION.md`
+- `docs/PHASE_6_BASELINE_ML.md`
+
 - `docs/FINAL_SUBMISSION_CHECKLIST.md`
 - `docs/DATA_SOURCES_AND_LIMITS.md`
+- `docs/PHASE2_SCIENTIFIC_DATASET.md`
+- `docs/PHASE_3_GROUND_TRUTH.md`
 
 ## Additional Data
 
@@ -161,4 +247,14 @@ That dataset is useful for showing OPDI portability, but it does not include the
 - Detector calculations do not use ground-truth labels.
 - OPDI separation statistics are exploratory for one event interval.
 - CME source compatibility is a heuristic ranking, not a calibrated probability.
-- Do not claim validated early warning or generalized ICME detection from this single-event prototype.
+- Multiple August windows count as one independent interval.
+- October 12 is an explicit unpublished SWIS gap; partial September dates are not used in the registered quiet-control core.
+- The November orientation control does not pass until valid Aditya-L1 SWIS and MAG files cover 25 November.
+- Exact Phase 3 shock/sheath/ejecta labels are used only for the configured August event.
+- Phase 4 features never use ground-truth labels as inputs.
+- Phase 5 holds out complete independent source intervals and never randomly splits individual minutes.
+- Phase 5 detection delay is only calculated for event windows containing an internal labeled onset.
+- Current Phase 5 results are exploratory mixed evidence, not a generalized OPDI validation claim.
+- Phase 6 uses complete held-out source intervals, train-only preprocessing, and label-free Phase 4 features; its ranking is exploratory until more independent events are available.
+- October remains a `COMPLEX_ICME` window-level label because the literature does not provide an exact Aditya-L1 shock minute.
+- Do not claim generalized detector performance while any required event fails the modality contract.

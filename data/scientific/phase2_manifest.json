@@ -1,0 +1,40 @@
+{
+  "schema_version": 2,
+  "dataset_name": "TopoCross-SWIS Phase 2 multi-event scientific dataset",
+  "phase": 2,
+  "status": "MULTI_EVENT_ASSEMBLED_WITH_DATA_GAPS",
+  "event_windows": 7,
+  "independent_intervals": 5,
+  "one_minute_records": 17201,
+  "source_records_available": 37440,
+  "unregistered_source_records": 20239,
+  "positive_events": 2,
+  "control_windows": 5,
+  "clean_negative_controls": 2,
+  "event_classes": [
+    "CIR_SIR",
+    "COMPLEX_ICME",
+    "ORIENTATION_CONTROL",
+    "POST_ICME",
+    "QUIET"
+  ],
+  "minimum_modality_coverage": 0.9,
+  "minimum_independent_intervals_for_research": 5,
+  "registered_windows_pass_contract": false,
+  "research_ready": false,
+  "output_files": {
+    "event_catalog": "data/scientific/phase2_event_catalog.csv",
+    "feature_table": "data/scientific/phase2_feature_table.csv",
+    "modality_coverage": "data/scientific/phase2_modality_coverage.csv",
+    "acquisition_queue": "data/scientific/phase2_acquisition_queue.csv"
+  },
+  "scientific_guardrails": [
+    "Multiple windows from the August 2024 source count as one independent interval.",
+    "Literature-backed approximate labels remain distinct from exact catalog boundaries.",
+    "The post-ICME control is not treated as a clean quiet negative.",
+    "NASA OMNI is an external near-Earth reference and never fills missing Aditya-L1 TH1, TH2, BLK or MAG values.",
+    "The unpublished 12 October SWIS day is preserved as a data gap and excluded from the registered ICME core window.",
+    "The November orientation control remains non-ready until valid Aditya-L1 SWIS and MAG files covering 25 November are supplied.",
+    "No multi-event detector performance claim is made until every required event passes the modality contract."
+  ]
+}

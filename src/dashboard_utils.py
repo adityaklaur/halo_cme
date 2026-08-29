@@ -11,6 +11,8 @@ STATE_COLOR = {
     "WATCH": "#ffbf00",
     "ALERT": "#d62728",
     "ICME CANDIDATE": "#9467bd",
+    "NOT AVAILABLE": "#777777",
+    "DATA ONLY": "#777777",  # legacy compatibility
 }
 
 
@@ -42,7 +44,7 @@ def overview_figure(df: pd.DataFrame, spec: dict, boundaries: list[dict] | None 
         vertical_spacing=0.035,
         subplot_titles=[
             "TH1 / TH2 cross-plane divergence",
-            "Detector state",
+            "Prototype detector state",
             "SWIS proton moments",
             "MAG GSE",
             "Transition and evidence scores",
@@ -52,16 +54,17 @@ def overview_figure(df: pd.DataFrame, spec: dict, boundaries: list[dict] | None 
         if col in d:
             fig.add_trace(go.Scatter(x=d.timestamp, y=d[col], name=name, mode="lines"), row=1, col=1)
 
-    y_state = {state: i for i, state in enumerate(["NORMAL", "WATCH", "ALERT", "ICME CANDIDATE"])}
-    colors = [STATE_COLOR.get(str(x), "#777") for x in d["state"]]
+    display_state = d["state"].astype(str).replace({"DATA ONLY": "NOT AVAILABLE"})
+    y_state = {state: i for i, state in enumerate(["NORMAL", "WATCH", "ALERT", "ICME CANDIDATE", "NOT AVAILABLE"])}
+    colors = [STATE_COLOR.get(str(x), "#777") for x in display_state]
     fig.add_trace(
         go.Scatter(
             x=d.timestamp,
-            y=d["state"].map(y_state),
+            y=display_state.map(y_state),
             mode="markers",
             marker=dict(size=4, color=colors),
-            name="state",
-            text=d["state"],
+            name="prototype state",
+            text=display_state,
         ),
         row=2,
         col=1,

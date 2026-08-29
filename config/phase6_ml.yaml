@@ -1,0 +1,29 @@
+schema_version: 1
+experiment_name: "Phase 6 baseline machine-learning comparison"
+target_column: "icme_binary"
+modeling_flag: "eligible_for_exploratory_modeling"
+phase4_ready_flag: "phase4_ready_for_exploratory_ablation"
+minimum_training_feature_fraction: 0.50
+prediction_threshold: 0.50
+persistence_minutes: 3
+random_state: 42
+primary_metric: "pr_auc"
+models:
+  Logistic Regression:
+    type: "logistic_regression"
+    C: 1.0
+    max_iter: 2500
+    class_weight: "balanced"
+  Random Forest:
+    type: "random_forest"
+    n_estimators: 200
+    min_samples_leaf: 5
+    max_features: "sqrt"
+    class_weight: "balanced_subsample"
+  Gradient Boosting:
+    type: "hist_gradient_boosting"
+    max_iter: 120
+    learning_rate: 0.06
+    max_leaf_nodes: 15
+    min_samples_leaf: 20
+    l2_regularization: 1.0

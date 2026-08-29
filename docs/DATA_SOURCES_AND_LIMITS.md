@@ -1,15 +1,15 @@
 # Data Sources And Limits
 
-## Primary Dataset
+## Primary Datasets
 
-The final prototype uses local Aditya-L1 Level-2 data already present in this project:
+The detector demonstration uses local August 2024 Aditya-L1 Level-2 data already present in this project:
 
 - SWIS TH1 CDF files in `tha1/`
 - SWIS TH2 CDF files in `tha2/`
 - SWIS BLK CDF files in `swis_BLK/`
 - MAG L2 NetCDF files in `mag_2026Aug23T210145602/`
 
-The final scientific build uses `2024-08-09` through `2024-08-15`.
+The Phase 2 registry additionally uses processed Aditya-L1 sources for October 2024, September 2024 and March 2025. November 2024 is registered but intentionally fails the modality contract until valid SWIS and MAG inputs are supplied.
 
 ## Official Source For More Aditya-L1 Data
 
@@ -33,9 +33,11 @@ This dataset is useful for showing that OPDI can be computed on another SWIS TH1
 
 Important limit: this Zenodo package is SWIS-only in this project. It does not include matching BLK plasma and MAG context for full CME validation.
 
-## Other Possible Context Data
+## NASA OMNI Context Data
 
-Public Wind, DSCOVR, and OMNI data are available through NASA/SPDF, NOAA/NCEI, and OMNIWeb. These can be useful for future comparison, but they should not be rushed into the final submission unless they are carefully time-aligned and documented.
+Official one-minute `OMNI_HRO_1MIN` CSV exports are packaged for the four added intervals. The files provide GSE magnetic components, solar-wind speed, proton density and temperature shifted to Earth's bow-shock nose. They are quality-filtered using the published fill values and stored with `omni_` column prefixes.
+
+OMNI is external near-Earth context. It is not an Aditya-L1 product and cannot replace missing SWIS spectra, BLK plasma or MAG observations.
 
 Useful sources:
 
@@ -43,11 +45,10 @@ Useful sources:
 - NASA CDAWeb: https://cdaweb.gsfc.nasa.gov/
 - NOAA DSCOVR/NCEI: https://www.ncei.noaa.gov/products/deep-space-climate-observatory-dscovr
 
-## Final Submission Position
+## Scientific Position
 
-For tomorrow's submission, the safest position is:
-
-- Use the Aditya-L1 SWIS/MAG August 2024 dataset as the main result.
-- Use Zenodo November 2023 only as a secondary SWIS-only OPDI portability demo.
-- Mention PRADAN as the official route for adding more Aditya-L1 mission data.
-- Keep scientific claims limited to a single-event exploratory prototype.
+- Five independent source intervals are represented.
+- Six of seven registered windows meet the current Aditya-L1 completeness contract.
+- October 12 SWIS and partial September products are preserved as source gaps.
+- November 25 remains blocked by invalid/missing Aditya-L1 inputs.
+- Multi-event detector-performance claims remain disabled until the blocked window passes.

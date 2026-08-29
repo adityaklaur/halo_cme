@@ -1,0 +1,33 @@
+schema_version: 1
+sources:
+  - source_id: "oct2024"
+    raw_subdir: "oct2024"
+    start_date: "2024-10-09"
+    end_date: "2024-10-14"
+    omni_raw_file: "data/external/omni/raw/oct2024_omni_hapi.csv"
+    omni_source_url: "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2024-10-09T00:00:00Z&time.max=2024-10-15T00:00:00Z&format=csv"
+    label_source: "https://arxiv.org/html/2602.13644v2"
+
+  - source_id: "mar2025"
+    raw_subdir: "mar2025"
+    start_date: "2025-03-07"
+    end_date: "2025-03-11"
+    omni_raw_file: "data/external/omni/raw/mar2025_omni_hapi.csv"
+    omni_source_url: "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2025-03-07T00:00:00Z&time.max=2025-03-12T00:00:00Z&format=csv"
+    label_source: "https://www.sidc.be/article/coronal-hole"
+
+  - source_id: "sep2024"
+    raw_subdir: "sep2024"
+    start_date: "2024-09-22"
+    end_date: "2024-09-26"
+    omni_raw_file: "data/external/omni/raw/sep2024_omni_hapi.csv"
+    omni_source_url: "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2024-09-22T00:00:00Z&time.max=2024-09-27T00:00:00Z&format=csv"
+    label_source: "https://arxiv.org/html/2507.11952v2"
+
+  - source_id: "nov2024"
+    raw_subdir: "nov2024"
+    start_date: "2024-11-24"
+    end_date: "2024-11-26"
+    omni_raw_file: "data/external/omni/raw/nov2024_omni_hapi.csv"
+    omni_source_url: "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2024-11-24T00:00:00Z&time.max=2024-11-27T00:00:00Z&format=csv"
+    label_source: "https://arxiv.org/html/2507.11952v2"

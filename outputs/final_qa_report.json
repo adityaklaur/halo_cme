@@ -1,26 +1,71 @@
 {
-  "project": "TopoCross-SWIS Aditya L2 final submission QA",
+  "project": "TopoCross-SWIS Aditya L2 Phase 2+3 final submission QA",
   "passed": true,
   "checks": [
     {
       "name": "feature_csv_exists",
       "passed": true,
-      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/aug2024_features_1min.csv"
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/processed/aug2024_features_1min.csv"
     },
     {
       "name": "pipeline_report_exists",
       "passed": true,
-      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/pipeline_report.json"
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/processed/pipeline_report.json"
     },
     {
       "name": "spectra_npz_exists",
       "passed": true,
-      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/data/processed/aug2024_spectra_1min.npz"
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/processed/aug2024_spectra_1min.npz"
     },
     {
       "name": "static_dashboard_exists",
       "passed": true,
-      "detail": "/Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2/outputs/TopoCross_dashboard.html"
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/TopoCross_dashboard.html"
+    },
+    {
+      "name": "phase2_catalog_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/scientific/phase2_event_catalog.csv"
+    },
+    {
+      "name": "phase2_features_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/scientific/phase2_feature_table.csv"
+    },
+    {
+      "name": "phase2_coverage_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/scientific/phase2_modality_coverage.csv"
+    },
+    {
+      "name": "phase2_manifest_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/data/scientific/phase2_manifest.json"
+    },
+    {
+      "name": "phase3_dataset_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/phase3/phase3_ground_truth_dataset.csv"
+    },
+    {
+      "name": "phase3_counts_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/phase3/phase3_label_counts.csv"
+    },
+    {
+      "name": "phase3_events_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/phase3/phase3_event_register.csv"
+    },
+    {
+      "name": "phase3_boundaries_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/phase3/phase3_boundary_register.csv"
+    },
+    {
+      "name": "phase3_report_exists",
+      "passed": true,
+      "detail": "/workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2/outputs/phase3/phase3_report.json"
     },
     {
       "name": "zenodo_external_dataset_optional",
@@ -83,10 +128,75 @@
       "detail": "0.764%"
     },
     {
+      "name": "phase2_registered_windows",
+      "passed": true,
+      "detail": "windows=7"
+    },
+    {
+      "name": "phase2_registered_rows",
+      "passed": true,
+      "detail": "rows=17201"
+    },
+    {
+      "name": "phase2_complete_events_pass_modalities",
+      "passed": true,
+      "detail": "{'BLK': 0.9765873015873016, 'MAG': 0.9864583333333332, 'TH1': 0.9996527777777776, 'TH2': 0.9996527777777776}"
+    },
+    {
+      "name": "phase2_only_november_is_blocked",
+      "passed": true,
+      "detail": "['NOV2024_ORIENTATION_CONTROL_01']"
+    },
+    {
+      "name": "phase2_independence_guardrail",
+      "passed": true,
+      "detail": "independent_intervals=5, research_ready=False"
+    },
+    {
+      "name": "online_omni_exports_validated",
+      "passed": true,
+      "detail": "{'oct2024': 8640, 'mar2025': 7200, 'sep2024': 7200, 'nov2024': 4320}"
+    },
+    {
+      "name": "phase3_valid",
+      "passed": true,
+      "detail": "COMPLETED_WITH_BLOCKED_PHASE2_SOURCE"
+    },
+    {
+      "name": "phase3_records_match_phase2",
+      "passed": true,
+      "detail": "records=17201"
+    },
+    {
+      "name": "phase3_event_and_interval_counts",
+      "passed": true,
+      "detail": "events=7, intervals=5"
+    },
+    {
+      "name": "phase3_labels_complete",
+      "passed": true,
+      "detail": "unknown=0, duplicates=0"
+    },
+    {
+      "name": "phase3_label_counts",
+      "passed": true,
+      "detail": "{'QUIET': 2030, 'SHOCK': 1, 'SHEATH': 1389, 'ICME/EJECTA': 3600, 'COMPLEX_ICME': 2520, 'POST-ICME': 2880, 'CIR/HSS': 4320, 'ORIENTATION-CONTROL': 461}"
+    },
+    {
+      "name": "phase3_only_november_blocked",
+      "passed": true,
+      "detail": "['NOV2024_ORIENTATION_CONTROL_01']"
+    },
+    {
+      "name": "phase3_october_uncertain_boundaries_not_used",
+      "passed": true,
+      "detail": "reference_rows=2"
+    },
+    {
       "name": "pytest_passes",
       "passed": true,
-      "detail": "============================= test session starts ==============================\nplatform darwin -- Python 3.13.9, pytest-9.0.2, pluggy-1.6.0\nrootdir: /Users/shailendra.jurel/Desktop/My Projects/Halo Aditya L2\nplugins: mock-3.15.1, anyio-4.9.0, cov-7.0.0\ncollected 9 items\n\ntests/test_opdi.py ...                                                   [ 33%]\ntests/test_regression.py ......                                          [100%]\n\n============================== 9 passed in 0.80s ===============================\n"
+      "detail": "============================= test session starts ==============================\nplatform linux -- Python 3.12.13, pytest-9.1.1, pluggy-1.6.0\nrootdir: /workspace/scratch/7e29a8b58ff9/work/Halo Aditya L2\nplugins: anyio-4.14.2\ncollected 19 items\n\ntests/test_opdi.py ...                                                   [ 15%]\ntests/test_phase2_dataset.py ....                                        [ 36%]\ntests/test_phase3_ground_truth.py .....                                  [ 63%]\ntests/test_regression.py ......                                          [ 94%]\ntests/test_ui_smoke.py .                                                 [100%]\n\n============================== 19 passed in 6.16s ==============================\n"
     }
   ],
-  "scientific_guardrail": "Single-event exploratory prototype. Do not claim validated early warning or generalized ICME detection."
+  "scientific_guardrail": "Phase 3 is valid across all Phase 2 windows, but research readiness remains false until valid Aditya-L1 SWIS and MAG data cover the November orientation control."
 }

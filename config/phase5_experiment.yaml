@@ -1,0 +1,35 @@
+schema_version: 1
+experiment_name: "Phase 5 OPDI central hypothesis ablation"
+target_column: "icme_binary"
+modeling_flag: "eligible_for_exploratory_modeling"
+negative_score_quantile: 0.99
+persistence_minutes: 3
+minimum_feature_fraction: 0.70
+modes:
+  Conventional:
+    - proton_bulk_speed
+    - proton_density
+    - proton_thermal
+    - alpha_proton_ratio
+    - bmag_gse
+    - Bx_gse
+    - By_gse
+    - Bz_gse
+  OPDI only:
+    - js_opdi
+    - hellinger_opdi
+    - wasserstein_opdi
+    - d_opdi_dt
+  Combined:
+    - proton_bulk_speed
+    - proton_density
+    - proton_thermal
+    - alpha_proton_ratio
+    - bmag_gse
+    - Bx_gse
+    - By_gse
+    - Bz_gse
+    - js_opdi
+    - hellinger_opdi
+    - wasserstein_opdi
+    - d_opdi_dt

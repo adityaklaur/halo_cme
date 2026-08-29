@@ -18,7 +18,9 @@ except Exception:  # pragma: no cover - only used if scipy is unavailable
     mannwhitneyu = None
 
 from src.detector_august import add_detector, add_ground_truth, evaluate_detection
+from src.ground_truth import build_phase3_ground_truth
 from src.mag_reader import resample_mag_minute
+from src.scientific_dataset import build_phase2_dataset
 from src.source_matcher import rank_cme_candidates
 from src.swis_august import process_swis_day
 
@@ -235,6 +237,16 @@ def main() -> None:
         ],
     }
     (proc / "pipeline_report.json").write_text(json.dumps(report, indent=2, default=str))
+    phase2_manifest = build_phase2_dataset(
+        ROOT,
+        ROOT / "config" / "phase2_events.yaml",
+        ROOT / "data" / "scientific",
+    )
+    phase3_report = build_phase3_ground_truth(
+        ROOT,
+        ROOT / "config" / "phase3_labels.yaml",
+        ROOT / "outputs" / "phase3",
+    )
     print(f"Built {len(out):,} one-minute records into {proc}")
     if primary_transition:
         print(
@@ -243,6 +255,16 @@ def main() -> None:
             f"({primary_transition['offset_from_configured_reference_minutes']:+.1f} min)",
         )
     print("State counts:", report["state_counts"])
+    print(
+        "Phase 2 scientific dataset:",
+        f"{phase2_manifest['event_windows']} registered windows from",
+        f"{phase2_manifest['independent_intervals']} independent interval(s)",
+    )
+    print(
+        "Phase 3 ground truth:",
+        f"{phase3_report['validation']['records']} labeled records;",
+        f"{phase3_report['validation']['phase3_ready_events']} of {phase3_report['validation']['event_windows']} events ready",
+    )
 
 
 if __name__ == "__main__":

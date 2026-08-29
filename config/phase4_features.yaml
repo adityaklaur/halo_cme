@@ -1,0 +1,11 @@
+schema_version: 1
+dataset_name: "TopoCross-SWIS Phase 4 complete feature dataset"
+input_dataset: "outputs/phase3/phase3_ground_truth_dataset.csv"
+primary_opdi: "js_opdi"
+rolling_windows_minutes: [5, 15, 60]
+primary_rolling_window_minutes: 15
+opdi_anomaly_baseline_minutes: 60
+opdi_anomaly_min_periods: 15
+opdi_anomaly_threshold: 3.0
+compression_baseline_minutes: 15
+minimum_spectral_probability_sum: 0.999

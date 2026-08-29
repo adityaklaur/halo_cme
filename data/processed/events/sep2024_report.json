@@ -1,0 +1,200 @@
+{
+  "date_range": {
+    "start": "2024-09-22",
+    "end": "2024-09-26"
+  },
+  "processed_dates": [
+    "20240922",
+    "20240923",
+    "20240924",
+    "20240925",
+    "20240926"
+  ],
+  "missing_swis_dates": [],
+  "partial_swis_dates": [
+    "20240924",
+    "20240926"
+  ],
+  "missing_mag_dates": [],
+  "partial_mag_dates": [
+    "20240924"
+  ],
+  "daily_mag_coverage": {
+    "20240922": 1.0,
+    "20240923": 1.0,
+    "20240924": 0.0006944444444444445,
+    "20240925": 1.0,
+    "20240926": 1.0
+  },
+  "aditya_complete_fraction": 0.6340277777777777,
+  "omni": {
+    "records": 7200,
+    "start": "2024-09-22 00:00:00",
+    "end": "2024-09-26 23:59:00",
+    "expected_start": "2024-09-22 00:00:00",
+    "expected_end": "2024-09-26 23:59:00",
+    "continuous_minute_index": true,
+    "duplicate_timestamps": 0,
+    "fully_valid_records": 5638,
+    "fully_valid_fraction": 0.7830555555555555
+  },
+  "omni_role": "External near-Earth conventional-data reference; never substituted for Aditya-L1 SWIS OPDI.",
+  "daily_swis_quality": {
+    "20240922": {
+      "records": 17275,
+      "start": "2024-09-22 00:00:28.180000",
+      "end": "2024-09-22 23:59:58.976000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6047803183791607,
+      "th2_finite_flux_fraction": 0.6994836468885673,
+      "status": "AVAILABLE"
+    },
+    "20240923": {
+      "records": 17275,
+      "start": "2024-09-23 00:00:28.976000",
+      "end": "2024-09-23 23:59:59.770000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6224648335745296,
+      "th2_finite_flux_fraction": 0.7052272069464545,
+      "status": "AVAILABLE"
+    },
+    "20240924": {
+      "records": 8635,
+      "start": "2024-09-24 12:00:25.162000",
+      "end": "2024-09-24 23:59:55.566000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 0.5,
+      "th1_finite_flux_fraction": 0.6070966994788651,
+      "th2_finite_flux_fraction": 0.7056074116965837,
+      "status": "AVAILABLE"
+    },
+    "20240925": {
+      "records": 17274,
+      "start": "2024-09-25 00:00:30.567000",
+      "end": "2024-09-25 23:59:56.363000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 1.0,
+      "th1_finite_flux_fraction": 0.6416220910038207,
+      "th2_finite_flux_fraction": 0.7091605881671876,
+      "status": "AVAILABLE"
+    },
+    "20240926": {
+      "records": 8636,
+      "start": "2024-09-26 12:00:21.762000",
+      "end": "2024-09-26 23:59:57.158000",
+      "native_cadence_seconds": 5.0,
+      "usable_fraction": 0.5,
+      "th1_finite_flux_fraction": 0.5404400185270959,
+      "th2_finite_flux_fraction": 0.6903056970819824,
+      "status": "AVAILABLE"
+    }
+  },
+  "source_files": [
+    {
+      "filename": "L2_AL1_MAG_20240922_V00.nc",
+      "bytes": 263630,
+      "sha256": "a224dd3c59d035b925606609be41b895c2ffd52186d93621da0f00f08e332ecb"
+    },
+    {
+      "filename": "L2_AL1_MAG_20240923_V00.nc",
+      "bytes": 260305,
+      "sha256": "3335c5da1a3575ff16f8de08b41dee6165ec4a497f718c83181bb0d93e5c49c6"
+    },
+    {
+      "filename": "L2_AL1_MAG_20240924_V00.nc",
+      "bytes": 68564,
+      "sha256": "2a3f36c73f9a1095ab8765878db5979994d06426c874e0332dd42cb4f99f75e0"
+    },
+    {
+      "filename": "L2_AL1_MAG_20240925_V00.nc",
+      "bytes": 264707,
+      "sha256": "aaf86861ff28fd901c753d39663b5197b12447e7a521c546ef7118b6b5f7b3bf"
+    },
+    {
+      "filename": "L2_AL1_MAG_20240926_V00.nc",
+      "bytes": 260999,
+      "sha256": "5bba6b895f0961ec8e1b643a51f08803f7ca5488f92bc42d99b8c2eb8c2c94eb"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20240922_UNP_9999_999999_V03.cdf",
+      "bytes": 1070646,
+      "sha256": "fda631c204dbc8b426f8f2c6e579fe32ca12f325315fdc716bf293b878a8b4bc"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20240923_UNP_9999_999999_V03.cdf",
+      "bytes": 1109526,
+      "sha256": "4407d32baf82859fa440efca8930c79caf0df9bd398096d807dbaf7570da9d88"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20240924_UNP_9999_999999_V03.cdf",
+      "bytes": 529570,
+      "sha256": "3e140accb228a212125154ed45a54087fa3a150ea9e2b7be3a4a02fd20d3780c"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20240925_UNP_9999_999999_V03.cdf",
+      "bytes": 1115197,
+      "sha256": "b355e69ae067ad70b9cd4ade28aec0229bf2dd63a391e6079b36187906a6d698"
+    },
+    {
+      "filename": "AL1_ASW91_L2_BLK_20240926_UNP_9999_999999_V03.cdf",
+      "bytes": 329973,
+      "sha256": "150d7fa98554f258d3bd963ae677a90bd8201306559640069e096c69aff82fbb"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20240922_UNP_9999_999999_V03.cdf",
+      "bytes": 21560365,
+      "sha256": "460a7a17ee49bf6d486dc1932100525025db20968542a4510c4fc0410d3a3a64"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20240923_UNP_9999_999999_V03.cdf",
+      "bytes": 22189028,
+      "sha256": "71b1b4943724b64d9865191bf83fc39a3e1499405c1092a259a59039571874a6"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20240924_UNP_9999_999999_V03.cdf",
+      "bytes": 10833126,
+      "sha256": "310d4d5fc25a07aa07b7a4d0b0daf2da02fe10f1759e7003f3c21217a999ce07"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20240925_UNP_9999_999999_V03.cdf",
+      "bytes": 22174055,
+      "sha256": "06b455b19ea6fba36efdbce11e2a764194053ed26d813ee2b15bcec4ba3b36ef"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH1_20240926_UNP_9999_999999_V03.cdf",
+      "bytes": 10080935,
+      "sha256": "29b69828a6764aa12b02b9aac461644b2c23d472df88d3d5e4cdcb8998a61640"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20240922_UNP_9999_999999_V03.cdf",
+      "bytes": 24793529,
+      "sha256": "c444ec78ca103df637175e6b9edc9993a46d8ef565c047998a6aa337857a973a"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20240923_UNP_9999_999999_V03.cdf",
+      "bytes": 25271454,
+      "sha256": "9b68efa26e8732258c52e914e9d6d22b06c132818e3b73d6665c317a4029570d"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20240924_UNP_9999_999999_V03.cdf",
+      "bytes": 12454091,
+      "sha256": "b004d8b3e10db1481656b927387c815c555694013ae8290fbc49c9c312d694a9"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20240925_UNP_9999_999999_V03.cdf",
+      "bytes": 24819900,
+      "sha256": "51badaa966114ac5acddacd17ad4997ea466cedc993bacf4cb726754a545a360"
+    },
+    {
+      "filename": "AL1_ASW91_L2_TH2_20240926_UNP_9999_999999_V03.cdf",
+      "bytes": 11934871,
+      "sha256": "6e1d1db6fcdc12521f9e2f9fe14f9e2f249a6ff9b79b1bda73f6addd0be98204"
+    }
+  ],
+  "source_id": "sep2024",
+  "label_source": "https://arxiv.org/html/2507.11952v2",
+  "omni_source_url": "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2024-09-22T00:00:00Z&time.max=2024-09-27T00:00:00Z&format=csv",
+  "normalized_omni_file": "data/external/omni/sep2024_omni_1min.csv"
+}

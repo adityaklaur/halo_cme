@@ -1,0 +1,67 @@
+schema_version: 2
+dataset_name: "TopoCross-SWIS Phase 3 multi-event ground-truth dataset"
+
+# Phase 3 consumes the Phase 2 event catalog. Every registered Phase 2 event
+# must have exactly one policy below. Constant policies preserve the supported
+# event-window label when exact substructure boundaries are unavailable.
+events:
+  - event_id: "AUG2024_QUIET_CONTROL_01"
+    policy: "CONSTANT"
+    constant_label: "QUIET"
+    label_confidence: "LOW"
+    boundary_status: "PROVISIONAL_WINDOW"
+
+  - event_id: "AUG2024_COMPLEX_ICME_01"
+    policy: "ICME_SUBSTRUCTURE"
+    label_confidence: "LOW"
+    boundary_status: "CONFIGURED_PROTOTYPE"
+    pre_shock_label: "QUIET"
+    shock_reference: "2024-08-10T12:50:00"
+    shock_reference_status: "APPROXIMATE_INTERNAL_BENCHMARK"
+    ejecta_start: "2024-08-11T12:00:00"
+    ejecta_start_status: "CONFIGURED_PROTOTYPE"
+    ejecta_end: "2024-08-14T00:00:00"
+    ejecta_end_status: "CONFIGURED_PROTOTYPE"
+    notes: "Preserves the supplied Phase 3 boundary policy; not an authoritative event-catalog boundary."
+
+  - event_id: "AUG2024_POST_EVENT_CONTROL_01"
+    policy: "CONSTANT"
+    constant_label: "POST-ICME"
+    label_confidence: "LOW"
+    boundary_status: "CONFIGURED_PROTOTYPE"
+
+  - event_id: "OCT2024_COMPLEX_ICME_01"
+    policy: "CONSTANT"
+    constant_label: "COMPLEX_ICME"
+    label_confidence: "MEDIUM"
+    boundary_status: "LITERATURE_BACKED_APPROXIMATE"
+    notes: "The source supports a complex ICME window but does not give an exact Aditya-L1 shock minute."
+    reference_boundaries:
+      - boundary_type: "SHOCK_AFTER_LOWER_BOUND"
+        boundary_time_utc: "2024-10-10T14:00:00"
+        scientific_status: "LITERATURE_APPROXIMATE_LOWER_BOUND"
+        notes: "Publication states that the shock arrived after 14:00 UTC; this time is not used as an exact shock label."
+      - boundary_type: "SHEATH_MC_BOUNDARY_REFERENCE"
+        boundary_time_utc: "2024-10-11T00:00:00"
+        scientific_status: "LITERATURE_APPROXIMATE"
+        notes: "Approximate sheath-magnetic-cloud boundary described in the publication; not used for minute-level substructure labels."
+
+  - event_id: "SEP2024_QUIET_CONTROL_01"
+    policy: "CONSTANT"
+    constant_label: "QUIET"
+    label_confidence: "HIGH"
+    boundary_status: "LITERATURE_BACKED_SUBWINDOW"
+
+  - event_id: "NOV2024_ORIENTATION_CONTROL_01"
+    policy: "CONSTANT"
+    constant_label: "ORIENTATION-CONTROL"
+    label_confidence: "HIGH"
+    boundary_status: "LITERATURE_BACKED_EXACT"
+    notes: "Label is valid, but Phase 2 modality readiness remains false until valid SWIS and MAG files are supplied."
+
+  - event_id: "MAR2025_CIR_HSS_01"
+    policy: "CONSTANT"
+    constant_label: "CIR/HSS"
+    label_confidence: "MEDIUM"
+    boundary_status: "LITERATURE_BACKED_APPROXIMATE"
+

@@ -1,0 +1,98 @@
+{
+  "date_range": {
+    "start": "2024-11-24",
+    "end": "2024-11-26"
+  },
+  "processed_dates": [
+    "20241124",
+    "20241125",
+    "20241126"
+  ],
+  "missing_swis_dates": [
+    "20241124",
+    "20241125",
+    "20241126"
+  ],
+  "partial_swis_dates": [],
+  "missing_mag_dates": [
+    "20241125",
+    "20241126"
+  ],
+  "partial_mag_dates": [],
+  "daily_mag_coverage": {
+    "20241124": 0.9798611111111111,
+    "20241125": 0.0,
+    "20241126": 0.0
+  },
+  "aditya_complete_fraction": 0.0,
+  "omni": {
+    "records": 4320,
+    "start": "2024-11-24 00:00:00",
+    "end": "2024-11-26 23:59:00",
+    "expected_start": "2024-11-24 00:00:00",
+    "expected_end": "2024-11-26 23:59:00",
+    "continuous_minute_index": true,
+    "duplicate_timestamps": 0,
+    "fully_valid_records": 2868,
+    "fully_valid_fraction": 0.6638888888888889
+  },
+  "omni_role": "External near-Earth conventional-data reference; never substituted for Aditya-L1 SWIS OPDI.",
+  "daily_swis_quality": {
+    "20241124": {
+      "records": 0,
+      "start": null,
+      "end": null,
+      "native_cadence_seconds": null,
+      "usable_fraction": 0.0,
+      "th1_finite_flux_fraction": 0.0,
+      "th2_finite_flux_fraction": 0.0,
+      "status": "MISSING_ADITYA_SWIS",
+      "missing_files": [
+        "TH1",
+        "TH2",
+        "BLK"
+      ]
+    },
+    "20241125": {
+      "records": 0,
+      "start": null,
+      "end": null,
+      "native_cadence_seconds": null,
+      "usable_fraction": 0.0,
+      "th1_finite_flux_fraction": 0.0,
+      "th2_finite_flux_fraction": 0.0,
+      "status": "MISSING_ADITYA_SWIS",
+      "missing_files": [
+        "TH1",
+        "TH2",
+        "BLK"
+      ]
+    },
+    "20241126": {
+      "records": 0,
+      "start": null,
+      "end": null,
+      "native_cadence_seconds": null,
+      "usable_fraction": 0.0,
+      "th1_finite_flux_fraction": 0.0,
+      "th2_finite_flux_fraction": 0.0,
+      "status": "MISSING_ADITYA_SWIS",
+      "missing_files": [
+        "TH1",
+        "TH2",
+        "BLK"
+      ]
+    }
+  },
+  "source_files": [
+    {
+      "filename": "L2_AL1_MAG_20241124_V00.nc",
+      "bytes": 261302,
+      "sha256": "5671071f68090441e2698555e4c80225c95a380872759d17beaedcabcd141cbb"
+    }
+  ],
+  "source_id": "nov2024",
+  "label_source": "https://arxiv.org/html/2507.11952v2",
+  "omni_source_url": "https://cdaweb.gsfc.nasa.gov/hapi/data?id=OMNI_HRO_1MIN&parameters=BX_GSE,BY_GSE,BZ_GSE,flow_speed,proton_density,T&time.min=2024-11-24T00:00:00Z&time.max=2024-11-27T00:00:00Z&format=csv",
+  "normalized_omni_file": "data/external/omni/nov2024_omni_1min.csv"
+}
